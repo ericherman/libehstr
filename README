@@ -1,0 +1,11 @@
+The "estr.h" header file defines:
+
+* strnlen, for environmets which only have strlen
+* revstr, to reverse the contents of a string in place
+* utob, for printing values as strings of "0"s and "1"s
+* btou, for converting a string of "0"s and "1"s to a value
+
+License
+-------
+GNU Lesser General Public License (LGPL), version 3 or later.
+See COPYING.GPL3 and COPYING.LGPL3 for details.
