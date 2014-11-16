@@ -3,7 +3,7 @@ The "estr.h" header file defines:
 * utob, for printing values as strings of "0"s and "1"s
 * btou, for converting a string of "0"s and "1"s to a value
 * revstr, to reverse the contents of a string in place
-* strnlen, for environmets which only have strlen
+* strnlen, for environments which only have strlen
 
 License
 -------
