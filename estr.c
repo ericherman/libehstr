@@ -3,41 +3,7 @@
 #include <string.h>
 #include <values.h>
 
-#if _POSIX_C_SOURCE < 200809L
-size_t strnlen(const char *str, size_t buf_size)
-{
-	size_t len = strlen(str);
-	if (len > buf_size) {
-#ifdef ESTR_STRICT_STRNLEN
-		exit(EXIT_FAILURE);
-#else
-		return buf_size;
-#endif
-	}
-	return len;
-}
-#endif
-
-void revstr(char *str, size_t buf_size)
-{
-	size_t i, j, len;
-	char swap;
-
-	if (buf_size == 0) {
-#ifdef ESTR_STRICT_REVSTR
-		exit(EXIT_FAILURE);
-#else
-		return;
-#endif
-	}
-
-	len = strnlen(str, buf_size);
-	for (i = 0, j = len - 1; i < j; i++, j--) {
-		swap = str[i];
-		str[i] = str[j];
-		str[j] = swap;
-	}
-}
+#include "estr.h"
 
 /*
   unsigned to binary
@@ -121,4 +87,40 @@ unsigned long btou(const char *buf, size_t buf_size)
 		}
 	}
 	return val;
+}
+
+#if _POSIX_C_SOURCE < 200809L
+size_t strnlen(const char *str, size_t buf_size)
+{
+	size_t len = strlen(str);
+	if (len > buf_size) {
+#ifdef ESTR_STRICT_STRNLEN
+		exit(EXIT_FAILURE);
+#else
+		return buf_size;
+#endif
+	}
+	return len;
+}
+#endif
+
+void revstr(char *str, size_t buf_size)
+{
+	size_t i, j, len;
+	char swap;
+
+	if (buf_size == 0) {
+#ifdef ESTR_STRICT_REVSTR
+		exit(EXIT_FAILURE);
+#else
+		return;
+#endif
+	}
+
+	len = strnlen(str, buf_size);
+	for (i = 0, j = len - 1; i < j; i++, j--) {
+		swap = str[i];
+		str[i] = str[j];
+		str[j] = swap;
+	}
 }
