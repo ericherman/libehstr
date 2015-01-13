@@ -2,7 +2,8 @@ The "estr.h" header file defines:
 
 * utob, for printing values as strings of "0"s and "1"s
 * btou, for converting a string of "0"s and "1"s to a value
-* revstr, to reverse the contents of a string in place (converts big to little endian)
+* revstr, to reverse the contents of a string in place
+   (converts big to little endian)
 * strnlen, for environments which only have strlen
 
 License
