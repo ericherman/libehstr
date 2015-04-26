@@ -3,15 +3,15 @@
 #include <string.h>
 #include <values.h>
 
-#include "estr.h"
+#include "ehstr.h"
 
 /*
   globals for controlling strictness and errors
 */
-unsigned int ESTR_STRICT_UTOB = 0;
-unsigned int ESTR_STRICT_BTOU = 0;
-unsigned int ESTR_STRICT_STRNLEN = 0;
-unsigned int ESTR_STRICT_REVSTR = 0;
+unsigned int EHSTR_STRICT_UTOB = 0;
+unsigned int EHSTR_STRICT_BTOU = 0;
+unsigned int EHSTR_STRICT_STRNLEN = 0;
+unsigned int EHSTR_STRICT_REVSTR = 0;
 
 /*
   unsigned to binary
@@ -23,9 +23,9 @@ char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 
 	if (buf_size == 0) {
 		fprintf(stderr, "buf_size of 0 is not valid\n");
-		if (ESTR_STRICT_UTOB > 1) {
+		if (EHSTR_STRICT_UTOB > 1) {
 			exit(EXIT_FAILURE);
-		} else if (ESTR_STRICT_UTOB > 0) {
+		} else if (EHSTR_STRICT_UTOB > 0) {
 			return NULL;
 		}
 		return buf;
@@ -35,7 +35,7 @@ char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 	} else if (bits > LONGBITS) {
 		fprintf(stderr, "%lu is greater than %lu\n",
 			(unsigned long)bits, (unsigned long)LONGBITS);
-		if (ESTR_STRICT_UTOB > 1) {
+		if (EHSTR_STRICT_UTOB > 1) {
 			exit(EXIT_FAILURE);
 		}
 		bits = LONGBITS;
@@ -65,7 +65,7 @@ unsigned long btou(const char *buf, size_t buf_size)
 
 	if (buf_size == 0) {
 		fprintf(stderr, "buf_size of 0 is not valid\n");
-		if (ESTR_STRICT_BTOU) {
+		if (EHSTR_STRICT_BTOU) {
 			exit(EXIT_FAILURE);
 		}
 		return 0;
@@ -85,7 +85,7 @@ unsigned long btou(const char *buf, size_t buf_size)
 			val |= tmp;
 		} else {
 			fprintf(stderr, "'%s' is not valid\n", buf);
-			if (ESTR_STRICT_BTOU) {
+			if (EHSTR_STRICT_BTOU) {
 				exit(EXIT_FAILURE);
 			}
 			return 0;
@@ -99,7 +99,7 @@ size_t strnlen(const char *str, size_t buf_size)
 {
 	size_t len = strlen(str);
 	if (len > buf_size) {
-		if (ESTR_STRICT_STRNLEN) {
+		if (EHSTR_STRICT_STRNLEN) {
 			exit(EXIT_FAILURE);
 		}
 		return buf_size;
@@ -114,7 +114,7 @@ void revstr(char *str, size_t buf_size)
 	char swap;
 
 	if (buf_size == 0) {
-		if (ESTR_STRICT_REVSTR) {
+		if (EHSTR_STRICT_REVSTR) {
 			exit(EXIT_FAILURE);
 		}
 		return;
@@ -128,30 +128,30 @@ void revstr(char *str, size_t buf_size)
 	}
 }
 
-unsigned int set_estr_strict_utob(unsigned int new_val)
+unsigned int set_ehstr_strict_utob(unsigned int new_val)
 {
-	unsigned int previous = ESTR_STRICT_UTOB;
-	ESTR_STRICT_UTOB = new_val;
+	unsigned int previous = EHSTR_STRICT_UTOB;
+	EHSTR_STRICT_UTOB = new_val;
 	return previous;
 }
 
-unsigned int set_estr_strict_btou(unsigned int new_val)
+unsigned int set_ehstr_strict_btou(unsigned int new_val)
 {
-	unsigned int previous = ESTR_STRICT_BTOU;
-	ESTR_STRICT_BTOU = new_val;
+	unsigned int previous = EHSTR_STRICT_BTOU;
+	EHSTR_STRICT_BTOU = new_val;
 	return previous;
 }
 
-unsigned int set_estr_strict_revstr(unsigned int new_val)
+unsigned int set_ehstr_strict_revstr(unsigned int new_val)
 {
-	unsigned int previous = ESTR_STRICT_REVSTR;
-	ESTR_STRICT_REVSTR = new_val;
+	unsigned int previous = EHSTR_STRICT_REVSTR;
+	EHSTR_STRICT_REVSTR = new_val;
 	return previous;
 }
 
-unsigned int set_estr_strict_strnlen(unsigned int new_val)
+unsigned int set_ehstr_strict_strnlen(unsigned int new_val)
 {
-	unsigned int previous = ESTR_STRICT_STRNLEN;
-	ESTR_STRICT_STRNLEN = new_val;
+	unsigned int previous = EHSTR_STRICT_STRNLEN;
+	EHSTR_STRICT_STRNLEN = new_val;
 	return previous;
 }

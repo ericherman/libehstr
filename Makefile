@@ -1,4 +1,4 @@
-LIB_NAME=estr
+LIB_NAME=ehstr
 
 AUX_INCLUDES=-I ../libecheck
 AUX_A_FILES=../libecheck/libecheck.a

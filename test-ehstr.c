@@ -3,7 +3,7 @@
 #include <echeck.h>
 #include <values.h>		/* LONGBITS */
 
-#include "estr.h"
+#include "ehstr.h"
 
 int check_revstr(void)
 {

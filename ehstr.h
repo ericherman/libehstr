@@ -1,5 +1,5 @@
-#ifndef _ESTR_H_
-#define _ESTR_H_
+#ifndef _EHSTR_H_
+#define _EHSTR_H_
 
 /*
   unsigned to big-endian binary
@@ -30,9 +30,9 @@ size_t strnlen(const char *str, size_t buf_size);
   globals for controlling strictness and errors
   ... I guess globals are better than #define
 */
-unsigned int set_estr_strict_utob(unsigned int new_val);
-unsigned int set_estr_strict_btou(unsigned int new_val);
-unsigned int set_estr_strict_revstr(unsigned int new_val);
-unsigned int set_estr_strict_strnlen(unsigned int new_val);
+unsigned int set_ehstr_strict_utob(unsigned int new_val);
+unsigned int set_ehstr_strict_btou(unsigned int new_val);
+unsigned int set_ehstr_strict_revstr(unsigned int new_val);
+unsigned int set_ehstr_strict_strnlen(unsigned int new_val);
 
-#endif /* _ESTR_H_ */
+#endif /* _EHSTR_H_ */

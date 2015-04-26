@@ -1,4 +1,4 @@
-The "estr.h" header file defines:
+The "ehstr.h" header file defines:
 
 * utob, for printing values as strings of "0"s and "1"s
 * btou, for converting a string of "0"s and "1"s to a value
