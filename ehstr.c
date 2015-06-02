@@ -97,14 +97,24 @@ unsigned long btou(const char *buf, size_t buf_size)
 #if _POSIX_C_SOURCE < 200809L
 size_t strnlen(const char *str, size_t buf_size)
 {
-	size_t len = strlen(str);
-	if (len > buf_size) {
+	size_t i;
+
+	if (buf_size == 0) {
 		if (EHSTR_STRICT_STRNLEN) {
 			exit(EXIT_FAILURE);
 		}
-		return buf_size;
+		return 0;
 	}
-	return len;
+
+	for (i = 0; i < buf_size; ++i) {
+		if (*(str + i) == '\0') {
+			return i;
+		}
+	}
+	if (EHSTR_STRICT_STRNLEN) {
+		exit(EXIT_FAILURE);
+	}
+	return buf_size;
 }
 #endif
 
