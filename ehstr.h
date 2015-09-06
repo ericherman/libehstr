@@ -1,5 +1,5 @@
-#ifndef _EHSTR_H_
-#define _EHSTR_H_
+#ifndef EHSTR_H
+#define EHSTR_H
 
 /*
   unsigned to big-endian binary
@@ -35,4 +35,4 @@ unsigned int set_ehstr_strict_btou(unsigned int new_val);
 unsigned int set_ehstr_strict_revstr(unsigned int new_val);
 unsigned int set_ehstr_strict_strnlen(unsigned int new_val);
 
-#endif /* _EHSTR_H_ */
+#endif /* EHSTR_H */
