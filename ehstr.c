@@ -10,7 +10,6 @@
 */
 unsigned int EHSTR_STRICT_UTOB = 0;
 unsigned int EHSTR_STRICT_BTOU = 0;
-unsigned int EHSTR_STRICT_STRNLEN = 0;
 unsigned int EHSTR_STRICT_REVSTR = 0;
 
 /*
@@ -95,14 +94,13 @@ unsigned long btou(const char *buf, size_t buf_size)
 }
 
 #if _POSIX_C_SOURCE < 200809L
+/* return the length of str, but check only as many as buf_size
+   if a '\0' is not found in the first buf_size, return buf_size  */
 size_t strnlen(const char *str, size_t buf_size)
 {
 	size_t i;
 
 	if (buf_size == 0) {
-		if (EHSTR_STRICT_STRNLEN) {
-			exit(EXIT_FAILURE);
-		}
 		return 0;
 	}
 
@@ -111,9 +109,7 @@ size_t strnlen(const char *str, size_t buf_size)
 			return i;
 		}
 	}
-	if (EHSTR_STRICT_STRNLEN) {
-		exit(EXIT_FAILURE);
-	}
+
 	return buf_size;
 }
 #endif
@@ -156,12 +152,5 @@ unsigned int set_ehstr_strict_revstr(unsigned int new_val)
 {
 	unsigned int previous = EHSTR_STRICT_REVSTR;
 	EHSTR_STRICT_REVSTR = new_val;
-	return previous;
-}
-
-unsigned int set_ehstr_strict_strnlen(unsigned int new_val)
-{
-	unsigned int previous = EHSTR_STRICT_STRNLEN;
-	EHSTR_STRICT_STRNLEN = new_val;
 	return previous;
 }

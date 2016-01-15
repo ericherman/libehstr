@@ -33,6 +33,5 @@ size_t strnlen(const char *str, size_t buf_size);
 unsigned int set_ehstr_strict_utob(unsigned int new_val);
 unsigned int set_ehstr_strict_btou(unsigned int new_val);
 unsigned int set_ehstr_strict_revstr(unsigned int new_val);
-unsigned int set_ehstr_strict_strnlen(unsigned int new_val);
 
 #endif /* EHSTR_H */
