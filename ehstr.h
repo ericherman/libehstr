@@ -22,7 +22,7 @@ void revstr(char *str, size_t buf_size);
 /*
   mostly for c89 compat
 */
-#if _POSIX_C_SOURCE < 200809L
+#if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
 size_t strnlen(const char *str, size_t buf_size);
 #endif
 
