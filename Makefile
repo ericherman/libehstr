@@ -52,6 +52,9 @@ endif
 
 LD_LIBRARY_PATH=.$(AUX_LD_LIBRARY_PATHS)
 
+# extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
+LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
+
 default: $(OUT)
 
 .c.o:
@@ -73,6 +76,12 @@ $(OUT): $(SO_NAME) $(A_NAME)
 check: $(OUT)
 	./$(OUT)-static
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) ./$(OUT)-dynamic
+
+tidy:
+	$(LINDENT) \
+		-T FILE \
+		-T size_t \
+		*.h *.c
 
 clean:
 	rm -f *.o *.a *.$(SHAREDEXT)  $(SO_NAME).* $(OUT)-static $(OUT)-dynamic
