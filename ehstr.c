@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <values.h>
+#include <values.h> /* LONGBITS */
 
 #include "ehstr.h"
 
@@ -28,34 +25,6 @@ char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 	buf[str_pos] = '\0';
 
 	return buf;
-}
-
-unsigned long btou(const char *buf, size_t buf_size)
-{
-	size_t i, j, shift, len;
-	unsigned long val, tmp;
-
-	if (buf_size == 0) {
-		return 0;
-	}
-
-	len = strnlen(buf, buf_size);
-
-	val = buf[0] == '0' ? 0 : ULONG_MAX;
-
-	for (i = 0, j = len; i < len; i++, j--) {
-		shift = j - 1;
-		if (buf[i] == '0') {
-			tmp = ~(1L << shift);
-			val &= tmp;
-		} else if (buf[i] == '1') {
-			tmp = 1L << shift;
-			val |= tmp;
-		} else {
-			break;
-		}
-	}
-	return val;
 }
 
 #if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L

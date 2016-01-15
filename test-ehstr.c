@@ -68,14 +68,16 @@ int check_btou(void)
 {
 	unsigned long result;
 	int failures;
+	int base2;
 
 	failures = 0;
 
-	result = btou("0101", 4);
+	base2 = 2;
+	result = strtol("0101", NULL, base2);
 	failures += check_long(result, 5);
 
-	result = btou("101", LONGBITS + 1);
-	failures += check_long(result, -3);
+	result = strtoul("101", NULL, base2);
+	failures += check_unsigned_long(result, 5);
 
 	if (failures) {
 		fprintf(stderr, "%d failures in check_btou\n", failures);

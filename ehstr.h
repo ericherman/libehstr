@@ -1,17 +1,14 @@
 #ifndef EHSTR_H
 #define EHSTR_H
 
+#include <stddef.h> /* size_t */
+
 /*
   unsigned to big-endian binary
   represents a binary value as a string of zeros and ones
+  see also: strtoul(buf, NULL, 2);
 */
 char *utob(char *buf, size_t buf_szie, unsigned long val, size_t bits);
-
-/*
-  big-endian binary to unsigned
-  convert a string of zeros and ones as a binary value
-*/
-unsigned long btou(const char *buf, size_t buf_size);
 
 /*
   reverse a string in place
