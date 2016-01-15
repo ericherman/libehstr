@@ -23,6 +23,8 @@ void revstr(char *str, size_t buf_size);
   mostly for c89 compat
 */
 #if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
+/* return the length of str, but check only as many as buf_size;
+   if a '\0' is not found in the first buf_size, return buf_size  */
 size_t strnlen(const char *str, size_t buf_size);
 #endif
 

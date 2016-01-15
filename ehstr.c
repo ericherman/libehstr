@@ -5,10 +5,6 @@
 
 #include "ehstr.h"
 
-/*
-  unsigned to binary
-  represents a binary value as a string of zeros and ones
-*/
 char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 {
 	size_t i, shift, str_pos;
@@ -34,10 +30,6 @@ char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 	return buf;
 }
 
-/*
-  binary to unsigned
-  convert a string of zeros and ones as a binary value
-*/
 unsigned long btou(const char *buf, size_t buf_size)
 {
 	size_t i, j, shift, len;
@@ -67,8 +59,6 @@ unsigned long btou(const char *buf, size_t buf_size)
 }
 
 #if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
-/* return the length of str, but check only as many as buf_size
-   if a '\0' is not found in the first buf_size, return buf_size  */
 size_t strnlen(const char *str, size_t buf_size)
 {
 	size_t i;
