@@ -16,6 +16,9 @@ char *utob(char *buf, size_t buf_szie, unsigned long val, size_t bits);
 */
 void revstr(char *str, size_t buf_size);
 
+/* trim leading and trailing whitespace from a string in place */
+void trimstr(char *str, size_t len);
+
 /*
   mostly for c89 compat
 */
