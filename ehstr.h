@@ -1,7 +1,7 @@
 #ifndef EHSTR_H
 #define EHSTR_H
 
-#include <stddef.h> /* size_t */
+#include <stddef.h>		/* size_t */
 
 /*
   unsigned to big-endian binary

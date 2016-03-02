@@ -1,4 +1,4 @@
-#include <values.h> /* LONGBITS */
+#include <values.h>		/* LONGBITS */
 
 #include "ehstr.h"
 

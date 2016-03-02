@@ -16,6 +16,18 @@ SHAREDFLAGS = -shared
 SHAREDEXT = so
 endif
 
+ifeq ("$(PREFIX)", "")
+PREFIX=/usr/local
+endif
+
+ifeq ("$(LIBDIR)", "")
+LIBDIR=$(PREFIX)/lib
+endif
+
+ifeq ("$(INCDIR)", "")
+INCDIR=$(PREFIX)/include
+endif
+
 LIB_SRC=$(LIB_NAME).c
 LIB_HDR=$(LIB_NAME).h
 LIB_OBJ=$(LIB_SRC:.c=.o)
@@ -28,9 +40,9 @@ endif
 A_NAME=lib$(LIB_NAME).a
 
 INCLUDES=-I.
-SRC=test-$(LIB_NAME).c
-OBJ=test-$(LIB_NAME).o
-OUT=test-$(LIB_NAME)
+TEST_SRC=test-$(LIB_NAME).c
+TEST_OBJ=test-$(LIB_NAME).o
+TEST_OUT=test-$(LIB_NAME)
 
 CSTD_CFLAGS=-std=c89
 #CSTD_CFLAGS=-std=c11
@@ -55,7 +67,7 @@ LD_LIBRARY_PATH=.$(AUX_LD_LIBRARY_PATHS)
 # extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
 
-default: $(OUT)
+default: $(LIB_NAME)
 
 .c.o:
 	$(CC) -c -fPIC $(CFLAGS) $< -o $@
@@ -68,14 +80,19 @@ $(SO_NAME): $(LIB_OBJ)
 $(A_NAME): $(LIB_OBJ)
 	ar -r $(A_NAME) $(SO_OBJS)
 
-$(OUT): $(SO_NAME) $(A_NAME)
-	$(CC) -c $(INCLUDES) $(AUX_INCLUDES) $(CFLAGS) $(SRC) -o $(OBJ)
-	$(CC) $(OBJ) $(A_NAME) $(AUX_A_FILES) -o $(OUT)-static
-	$(CC) $(OBJ) $(LDFLAGS) $(AUX_LDFLAGS) -o $(OUT)-dynamic
+$(LIB_NAME): $(SO_NAME) $(A_NAME)
+	@echo $(UNAME) $(LIB_NAME) library files:
+	@ls -1 $(SO_NAME)* *.a
 
-check: $(OUT)
-	./$(OUT)-static
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) ./$(OUT)-dynamic
+tests: $(LIB_NAME)
+	$(CC) -c $(INCLUDES) $(AUX_INCLUDES) $(CFLAGS) -o $(TEST_OBJ) \
+		$(TEST_SRC)
+	$(CC) $(TEST_OBJ) $(A_NAME) $(AUX_A_FILES) -o $(TEST_OUT)-static
+	$(CC) $(TEST_OBJ) $(LDFLAGS) $(AUX_LDFLAGS) -o $(TEST_OUT)-dynamic
+
+check: tests
+	./$(TEST_OUT)-static
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) ./$(TEST_OUT)-dynamic
 
 tidy:
 	$(LINDENT) \
@@ -84,11 +101,14 @@ tidy:
 		*.h *.c
 
 clean:
-	rm -f *.o *.a *.$(SHAREDEXT)  $(SO_NAME).* $(OUT)-static $(OUT)-dynamic
+	rm -f *.o *.a *.$(SHAREDEXT) $(SO_NAME).* \
+		$(TEST_OUT)-static $(TEST_OUT)-dynamic
 
-install:
-	 @echo "Installing libraries in $(LIBDIR)"; \
-	 cp -pv $(A_NAME) $(LIBDIR)/;\
-	 cp -Rv $(SO_NAME)* $(LIBDIR)/;\
-	 echo "Installing headers in $(INCDIR)"; \
-	 cp -pv $(LIB_HDR) $(INCDIR)/;
+install: $(LIB_NAME)
+	@echo "Installing $(LIB_NAME) $(UNAME) libraries in $(LIBDIR)"
+	@mkdir -pv $(LIBDIR)
+	@cp -pv $(A_NAME) $(LIBDIR)/
+	@cp -Rv $(SO_NAME)* $(LIBDIR)/
+	@echo "Installing $(LIB_NAME) headers in $(INCDIR)"
+	@mkdir -pv $(INCDIR)
+	@cp -pv $(LIB_HDR) $(INCDIR)/
