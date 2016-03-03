@@ -27,8 +27,7 @@ char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 	return buf;
 }
 
-#if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
-size_t strnlen(const char *str, size_t buf_size)
+size_t ehstrnlen(const char *str, size_t buf_size)
 {
 	size_t i;
 
@@ -40,7 +39,6 @@ size_t strnlen(const char *str, size_t buf_size)
 
 	return buf_size;
 }
-#endif
 
 static int char_is_whitespace(char c)
 {

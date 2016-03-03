@@ -21,11 +21,13 @@ void trimstr(char *str, size_t len);
 
 /*
   mostly for c89 compat
+
+  return the length of str, but check only as many as buf_size;
+  if a '\0' is not found in the first buf_size, return buf_size
 */
+size_t ehstrnlen(const char *str, size_t buf_size);
 #if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
-/* return the length of str, but check only as many as buf_size;
-   if a '\0' is not found in the first buf_size, return buf_size  */
-size_t strnlen(const char *str, size_t buf_size);
+#define strnlen ehstrnlen
 #endif
 
 #endif /* EHSTR_H */
