@@ -1,4 +1,5 @@
 #include <values.h>		/* LONGBITS */
+#include <ctype.h>		/* isspace */
 
 #include "ehstr.h"
 
@@ -40,22 +41,6 @@ size_t ehstrnlen(const char *str, size_t buf_size)
 	return buf_size;
 }
 
-static int char_is_whitespace(char c)
-{
-	switch (c) {
-	case ' ':
-	case '\t':
-	case '\r':
-	case '\n':
-	case '\v':
-	case '\b':
-	case '\f':
-		return 1;
-	default:
-		return 0;
-	}
-}
-
 void trimstr(char *str, size_t buf_size)
 {
 	size_t i, j, offset, len, nonwhite;
@@ -66,13 +51,13 @@ void trimstr(char *str, size_t buf_size)
 	}
 
 	nonwhite = 0;
-	for (i = 0; i < len && char_is_whitespace(str[i]); ++i) ;
+	for (i = 0; i < len && isspace(str[i]); ++i) ;
 	offset = i;
 
 	if (offset) {
 		for (i = 0, j = offset; j < len; ++i, ++j) {
 			str[i] = str[j];
-			if (char_is_whitespace(str[i]) == 0) {
+			if (isspace(str[i]) == 0) {
 				nonwhite = i;
 			}
 		}
@@ -84,7 +69,7 @@ void trimstr(char *str, size_t buf_size)
 
 	nonwhite = 0;
 	for (i = len; i > 0 && nonwhite == 0; --i) {
-		if (char_is_whitespace(str[i - 1])) {
+		if (isspace(str[i - 1])) {
 			str[i - 1] = '\0';
 		} else {
 			nonwhite = 1;
