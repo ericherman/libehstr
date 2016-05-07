@@ -19,6 +19,11 @@ void revstr(char *str, size_t buf_size);
 /* trim leading and trailing whitespace from a string in place */
 void trimstr(char *str, size_t len);
 
+char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,
+		     size_t buf_len);
+char *hex_to_decimal(const char *hex, size_t hex_len, char *buf,
+		     size_t buf_len);
+
 /*
   mostly for c89 compat
 

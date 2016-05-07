@@ -109,6 +109,122 @@ int check_btou(void)
 	return failures;
 }
 
+int check_decimal_to_hex()
+{
+	int failures;
+	char buf[20];
+	char *rv;
+	const char *str;
+
+	failures = 0;
+
+	rv = decimal_to_hex("275", 3, buf, 20);
+
+	if (rv == NULL) {
+		fprintf(stderr, "NULL returned from decimal_to_hex\n");
+		fprintf(stderr, "Aborting test\n");
+		return (1 + failures);
+	}
+
+	failures += check_str(buf, "0x0113");
+
+	rv = decimal_to_hex("65543", 10, buf, 20);
+
+	if (rv == NULL) {
+		fprintf(stderr, "NULL returned from decimal_to_hex\n");
+		fprintf(stderr, "Aborting test\n");
+		return (1 + failures);
+	}
+
+	failures += check_str(buf, "0x010007");
+
+	str = "5088824049625";
+	rv = decimal_to_hex(str, strlen(str), buf, 20);
+	if (rv == NULL) {
+		fprintf(stderr, "NULL returned from decimal_to_hex\n");
+		fprintf(stderr, "Aborting test\n");
+		return (1 + failures);
+	}
+	failures += check_str(buf, "0x04A0D58CBFD9");
+
+	if (failures) {
+		fprintf(stderr, "%d failures in test_decimal_to_hex\n",
+			failures);
+	}
+
+	return failures;
+}
+
+int check_hex_to_decimal()
+{
+	int failures;
+	char buf[20];
+	char *rv;
+
+	failures = 0;
+
+	rv = hex_to_decimal("0x113", 5, buf, 20);
+
+	if (rv == NULL) {
+		fprintf(stderr, "NULL returned from hex_to_decimal\n");
+		fprintf(stderr, "Aborting test\n");
+		return (1 + failures);
+	}
+
+	failures += check_str(buf, "275");
+
+	rv = hex_to_decimal("0x10007", 10, buf, 20);
+
+	if (rv == NULL) {
+		fprintf(stderr, "NULL returned from hex_to_decimal\n");
+		fprintf(stderr, "Aborting test\n");
+		return (1 + failures);
+	}
+
+	failures += check_str(buf, "65543");
+
+	if (failures) {
+		fprintf(stderr, "%d failures in test_hex_to_decimal\n",
+			failures);
+	}
+
+	return failures;
+}
+
+int check_decimal_to_hex_to_decimal_loop()
+{
+	int failures;
+	int i;
+	char buf[100];
+	char hex[100];
+	char dec[100];
+	char *numv[] = { "1", "10", "275", "65543", "17", "1025", "106" };
+	int numc = 7;
+
+	failures = 0;
+
+	for (i = 0; i < numc; ++i) {
+		decimal_to_hex(numv[i], strlen(numv[i]), hex, 100);
+		hex_to_decimal(hex, 100, dec, 100);
+		failures += check_str(dec, numv[i]);
+	}
+
+	/* lets just do a bunch */
+	for (i = 1; i < 1000001; i += 25) {
+		sprintf(buf, "%d", i);
+		decimal_to_hex(buf, strlen(buf), hex, 100);
+		hex_to_decimal(hex, 100, dec, 100);
+		failures += check_str(dec, buf);
+	}
+
+	if (failures) {
+		fprintf(stderr, "%d failures in test_hex_to_decimal\n",
+			failures);
+	}
+
+	return failures;
+}
+
 /* int main(int argc, char *argv[]) */
 int main(void)
 {
@@ -119,6 +235,9 @@ int main(void)
 	failures += check_strnlen();
 	failures += check_utob();
 	failures += check_btou();
+	failures += check_decimal_to_hex();
+	failures += check_hex_to_decimal();
+	failures += check_decimal_to_hex_to_decimal_loop();
 
 	if (failures) {
 		fprintf(stderr, "%d failures in total\n", failures);

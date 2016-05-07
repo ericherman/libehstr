@@ -89,3 +89,173 @@ void revstr(char *str, size_t buf_size)
 		str[j] = swap;
 	}
 }
+
+static char nibble_to_hex(unsigned char nibble)
+{
+	if (nibble < 10) {
+		return '0' + nibble;
+	} else if (nibble < 16) {
+		return 'A' + nibble - 10;
+	} else {
+		return '\0';
+	}
+}
+
+char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,
+		     size_t buf_len)
+{
+	size_t i, j, k, hex_len;
+	unsigned char *hex_buf;
+
+	if (dec_str == 0 || buf == 0 || buf_len < 5) {
+		return NULL;
+	}
+
+	buf[0] = '0';
+	buf[1] = 'x';
+
+	/* first operate with binary data, convert to ASCII later */
+	/* start by adjusting the buf for our needs - needs to be unsigned */
+	hex_buf = (unsigned char *)buf + 2;	/* skip past leading "0x" */
+	hex_len = buf_len - 3;	/* and leave room for the NULL terminator */
+
+	/* zero out the buffer */
+	for (i = 0; i < hex_len; ++i) {
+		hex_buf[i] = '\0';
+	}
+
+	for (i = 0; i < dec_len && dec_str[i] != '\0'; ++i) {
+		if (dec_str[i] < '0' || dec_str[i] > '9') {
+			buf[0] = '\0';
+			return NULL;
+		}
+		/* we're doing another digit, multiply previous by 10 */
+		for (j = 0; j < hex_len; ++j) {
+			k = hex_len - 1 - j;
+			hex_buf[k] *= 10;
+		}
+
+		hex_buf[hex_len - 1] += (dec_str[i] - '0');
+
+		/* carry */
+		for (j = 0; j < hex_len; ++j) {
+			k = hex_len - 1 - j;
+			if (hex_buf[k] >= 16) {
+				hex_buf[k - 1] += (hex_buf[k] / 16);
+				hex_buf[k] = (hex_buf[k] % 16);
+			}
+		}
+	}
+
+	/* convert to ASCII */
+	for (j = 0; j < hex_len; ++j) {
+		hex_buf[j] = nibble_to_hex(buf[2 + j]);
+	}
+
+	/* left shift away leading zeros */
+	/* first find the index (j) of the first non-zero */
+	for (j = 0; hex_buf[j] == '0' && j < hex_len; ++j) {
+		;
+	}
+
+	/* but work on whole bytes */
+	/* since j was incremented, whole bytes of '0' will be odd */
+	if (j % 2 == 0) {
+		j -= 1;
+	}
+
+	/* next, shift all the contents "j" places to the left */
+	for (i = 0; i < (hex_len - j); ++i) {
+		hex_buf[i] = hex_buf[i + j];
+	}
+
+	/* add a trailing NULL */
+	buf[buf_len - 1 - j] = '\0';
+
+	return buf;
+}
+
+char *hex_to_decimal(const char *hex, size_t hex_len, char *buf, size_t buf_len)
+{
+	size_t i, j, k, dec_len;
+	unsigned char *dec_buf;
+	char ascii_offset;
+	unsigned char num_val;
+
+	if (hex == 0 || buf == 0 || buf_len < 2 || buf_len < hex_len) {
+		return NULL;
+	}
+
+	/* skip over leading '0x' in string */
+	if (hex_len >= 2 && hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X')) {
+		hex += 2;
+		hex_len -= 2;
+	}
+
+	/* first operate with binary data, convert to ASCII later */
+	/* start by adjusting the buf for our needs - needs to be unsigned */
+	dec_buf = (unsigned char *)buf;
+	dec_len = buf_len - 1;	/* leave room for the NULL terminator */
+
+	/* zero out the buffer */
+	for (i = 0; i < dec_len; ++i) {
+		dec_buf[i] = 0;
+	}
+
+	for (i = 0; i < hex_len && hex[i] != 0; ++i) {
+		ascii_offset = 0;
+		if (hex[i] >= '0' && hex[i] <= '9') {
+			ascii_offset = '0';
+		} else if (hex[i] >= 'A' && hex[i] <= 'F') {
+			ascii_offset = 'A';
+		} else if (hex[i] >= 'a' && hex[i] <= 'f') {
+			ascii_offset = 'a';
+		}
+		if (ascii_offset == 0) {
+			dec_buf[0] = '\0';
+			return NULL;
+		}
+
+		/* we're doing another digit, multiply previous by 16 */
+		for (j = 0; j < dec_len; ++j) {
+			k = dec_len - 1 - j;
+			dec_buf[k] *= 16;
+		}
+
+		if (ascii_offset == '0') {
+			num_val = (hex[i] - '0');
+		} else {
+			num_val = 10 + (hex[i] - ascii_offset);
+		}
+		dec_buf[dec_len - 1] += num_val;
+
+		/* carry */
+		for (j = 0; j < dec_len; ++j) {
+			k = dec_len - 1 - j;
+			if (dec_buf[k] >= 10) {
+				dec_buf[k - 1] += (dec_buf[k] / 10);
+				dec_buf[k] = (dec_buf[k] % 10);
+			}
+		}
+	}
+
+	/* convert to ASCII */
+	for (j = 0; j < dec_len; ++j) {
+		buf[j] = '0' + dec_buf[j];
+	}
+
+	/* left shift away leading zeros */
+	/* first find the index (j) of the first non-zero */
+	for (j = 0; dec_buf[j] == '0' && j < dec_len; ++j) {
+		;
+	}
+	/* next, shift all the contents "j" places to the left */
+	for (i = 0; i < (dec_len - j); ++i) {
+		dec_buf[i] = dec_buf[i + j];
+	}
+
+	/* add a trailing NULL */
+	buf[buf_len - 1 - j] = '\0';
+
+	return buf;
+}
