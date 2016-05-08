@@ -19,9 +19,12 @@ void revstr(char *str, size_t buf_size);
 /* trim leading and trailing whitespace from a string in place */
 void trimstr(char *str, size_t len);
 
+/* converts an arbitrarily long string of unsigned decimal digits into hex */
 char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,
 		     size_t buf_len);
-char *hex_to_decimal(const char *hex, size_t hex_len, char *buf,
+
+/* converts an arbitrarily long string of hex digits into unsigned decimal */
+char *hex_to_decimal(const char *hex_str, size_t hex_len, char *buf,
 		     size_t buf_len);
 
 /*
