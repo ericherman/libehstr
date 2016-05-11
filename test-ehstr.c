@@ -5,7 +5,7 @@
 
 #include "ehstr.h"
 
-int check_revstr(void)
+int test_revstr(void)
 {
 	int failures;
 	char expected[10], reverse[10];
@@ -24,7 +24,7 @@ int check_revstr(void)
 	return failures;
 }
 
-int check_trimstr(void)
+int test_trimstr(void)
 {
 	int failures;
 	char expected[20], actual[20];
@@ -48,7 +48,7 @@ int check_trimstr(void)
 	return failures;
 }
 
-int check_strnlen()
+int test_strnlen()
 {
 	int failures = 0;
 	char *foo = "foo";
@@ -62,7 +62,7 @@ int check_strnlen()
 	return failures;
 }
 
-int check_utob(void)
+int test_utob(void)
 {
 	int failures;
 	char buf[LONGBITS + 1];
@@ -88,7 +88,7 @@ int check_utob(void)
 	return failures;
 }
 
-int check_btou(void)
+int test_btou(void)
 {
 	unsigned long result;
 	int failures;
@@ -109,7 +109,7 @@ int check_btou(void)
 	return failures;
 }
 
-int check_decimal_to_hex()
+int test_decimal_to_hex()
 {
 	int failures;
 	char buf[20];
@@ -155,7 +155,7 @@ int check_decimal_to_hex()
 	return failures;
 }
 
-int check_hex_to_decimal()
+int test_hex_to_decimal()
 {
 	int failures;
 	char buf[20];
@@ -191,7 +191,7 @@ int check_hex_to_decimal()
 	return failures;
 }
 
-int check_decimal_to_hex_to_decimal_loop()
+int test_decimal_to_hex_to_decimal_loop()
 {
 	int failures;
 	int i;
@@ -230,14 +230,14 @@ int main(void)
 {
 	int failures = 0;
 
-	failures += check_revstr();
-	failures += check_trimstr();
-	failures += check_strnlen();
-	failures += check_utob();
-	failures += check_btou();
-	failures += check_decimal_to_hex();
-	failures += check_hex_to_decimal();
-	failures += check_decimal_to_hex_to_decimal_loop();
+	failures += test_revstr();
+	failures += test_trimstr();
+	failures += test_strnlen();
+	failures += test_utob();
+	failures += test_btou();
+	failures += test_decimal_to_hex();
+	failures += test_hex_to_decimal();
+	failures += test_decimal_to_hex_to_decimal_loop();
 
 	if (failures) {
 		fprintf(stderr, "%d failures in total\n", failures);
