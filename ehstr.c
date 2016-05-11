@@ -249,6 +249,10 @@ char *hex_to_decimal(const char *hex, size_t hex_len, char *buf, size_t buf_len)
 	for (j = 0; dec_buf[j] == '0' && j < dec_len; ++j) {
 		;
 	}
+	/* if everything is zero, include the last zero */
+	if (j == dec_len) {
+		--j;
+	}
 	/* next, shift all the contents "j" places to the left */
 	for (i = 0; i < (dec_len - j); ++i) {
 		dec_buf[i] = dec_buf[i + j];

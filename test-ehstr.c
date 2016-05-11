@@ -174,6 +174,7 @@ int test_hex_to_decimal()
 
 	failures = 0;
 
+	failures += check_hex_to_decimal("0x00", "0");
 	failures += check_hex_to_decimal("0x0113", "275");
 	failures += check_hex_to_decimal("0x10007", "65543");
 
@@ -192,7 +193,7 @@ int test_decimal_to_hex_to_decimal_loop()
 	char buf[100];
 	char hex[100];
 	char dec[100];
-	char *numv[] = { "1", "10", "275", "65543", "17", "1025", "106" };
+	char *numv[] = { "0", "1", "10", "275", "65543", "17", "1025", "106" };
 	int numc = 7;
 
 	failures = 0;
