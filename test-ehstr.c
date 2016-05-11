@@ -155,33 +155,27 @@ int test_decimal_to_hex()
 	return failures;
 }
 
+int check_hex_to_decimal(char *in, char *expected)
+{
+	char buf[20];
+	char *out;
+
+	out = hex_to_decimal(in, strlen(in), buf, 20);
+	if (out == NULL) {
+		fprintf(stderr, "NULL returned from hex_to_decimal\n");
+		return 1;
+	}
+	return check_str(out, expected);
+}
+
 int test_hex_to_decimal()
 {
 	int failures;
-	char buf[20];
-	char *rv;
 
 	failures = 0;
 
-	rv = hex_to_decimal("0x113", 5, buf, 20);
-
-	if (rv == NULL) {
-		fprintf(stderr, "NULL returned from hex_to_decimal\n");
-		fprintf(stderr, "Aborting test\n");
-		return (1 + failures);
-	}
-
-	failures += check_str(buf, "275");
-
-	rv = hex_to_decimal("0x10007", 10, buf, 20);
-
-	if (rv == NULL) {
-		fprintf(stderr, "NULL returned from hex_to_decimal\n");
-		fprintf(stderr, "Aborting test\n");
-		return (1 + failures);
-	}
-
-	failures += check_str(buf, "65543");
+	failures += check_hex_to_decimal("0x0113", "275");
+	failures += check_hex_to_decimal("0x10007", "65543");
 
 	if (failures) {
 		fprintf(stderr, "%d failures in test_hex_to_decimal\n",
