@@ -2,7 +2,8 @@ LIB_NAME=ehstr
 
 AUX_INCLUDES=-I ../libecheck
 AUX_A_FILES=../libecheck/libecheck.a
-AUX_LDFLAGS=-L../libecheck -lecheck
+AUX_LDFLAGS=-L../libecheck
+AUX_LDADD=-lecheck
 AUX_LD_LIBRARY_PATHS=:../libecheck
 
 
@@ -51,7 +52,8 @@ DEBUG_CFLAGS=-ggdb -O3
 NOISY_CFLAGS=-Wall -Wextra -pedantic -Werror
 
 CFLAGS += $(CSTD_CFLAGS) $(DEBUG_CFLAGS) $(NOISY_CFLAGS)
-LDFLAGS += -L. -l$(LIB_NAME)
+LDFLAGS += -L.
+LDADD += -l$(LIB_NAME)
 CC=gcc
 
 ifeq ("$(LIBDIR)", "")
@@ -88,7 +90,8 @@ tests: $(LIB_NAME)
 	$(CC) -c $(INCLUDES) $(AUX_INCLUDES) $(CFLAGS) -o $(TEST_OBJ) \
 		$(TEST_SRC)
 	$(CC) $(TEST_OBJ) $(A_NAME) $(AUX_A_FILES) -o $(TEST_OUT)-static
-	$(CC) $(TEST_OBJ) $(LDFLAGS) $(AUX_LDFLAGS) -o $(TEST_OUT)-dynamic
+	$(CC) $(TEST_OBJ) $(LDFLAGS) $(AUX_LDFLAGS) \
+		-o $(TEST_OUT)-dynamic $(LDADD) $(AUX_LDADD)
 
 check: tests
 	./$(TEST_OUT)-static
