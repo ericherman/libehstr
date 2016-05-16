@@ -47,5 +47,7 @@ tidy:
 		-T size_t \
 		`find src tests -name '*.h' -o -name '*.c'`
 
-spotless:
+spotless: clean
 	rm -rf `cat .gitignore`
+	pushd src; rm -rf `cat ../.gitignore`; popd
+	pushd tests; rm -rf `cat ../.gitignore`; popd
