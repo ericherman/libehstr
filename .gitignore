@@ -21,6 +21,14 @@ $*
 test-ehstr
 test-*-dynamic
 test-*-static
+test-btou
+test-decimal-to-hex
+test-decimal-to-hex-to-dec-loop
+test-ehstrnlen
+test-hex-to-decimal
+test-revstr
+test-trimstr
+test-utob
 
 ################
 # autotools

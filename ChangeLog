@@ -1,5 +1,18 @@
 2016-05-16  Eric Herman <eric@freesa.org>
 
+	* Move source files in to "src" and "tests" directories
+	* test-ehstr.c: split in to individual tests:
+		test-btou.c
+		test-decimal-to-hex.c
+		test-decimal-to-hex-to-dec-loop.c
+		test-ehstrnlen.c
+		test-hex-to-decimal.c
+		test-revstr.c
+		test-trimstr.c
+		test-utob.c
+
+2016-05-16  Eric Herman <eric@freesa.org>
+
 	* tagging as release version 1.0.0
 
 	* ChangeLog: Freshly created ChangeLog.
