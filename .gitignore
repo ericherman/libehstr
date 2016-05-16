@@ -58,3 +58,5 @@ m4/
 *.log
 *.trs
 *.log
+build-aux/
+.dirstamp

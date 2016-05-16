@@ -2,9 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libehstr], [1.0.0], [eric@freesa.org])
-AC_CONFIG_SRCDIR([ehstr.h])
+AC_INIT([libehstr], [1.0.1-dev], [eric@freesa.org])
+AC_CONFIG_SRCDIR([src/ehstr.h])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_USE_SYSTEM_EXTENSIONS
@@ -23,9 +24,9 @@ AC_TYPE_SIZE_T
 
 # Checks for library functions.
 AC_FUNC_STRNLEN
-AC_CHECK_FUNCS([strtol strtoul echeck_str_m])
+AC_CHECK_FUNCS([strtol strtoul])
 
-AM_INIT_AUTOMAKE([-Werror -Wall])
+AM_INIT_AUTOMAKE([subdir-objects -Werror -Wall])
 AM_PROG_AR
 LT_INIT
 

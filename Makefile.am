@@ -1,14 +1,14 @@
 lib_LTLIBRARIES=libehstr.la
-libehstr_la_SOURCES=ehstr.c
+libehstr_la_SOURCES=src/ehstr.c
 
-include_HEADERS=ehstr.h
+include_HEADERS=src/ehstr.h
 
 TESTS=$(check_PROGRAMS)
 check_PROGRAMS=test-ehstr
-test_ehstr_SOURCES=test-ehstr.c
+test_ehstr_SOURCES=tests/test-ehstr.c src/ehstr.h
 test_ehstr_LDADD=libehstr.la -lecheck
 
-ACLOCAL_AMFLAGS=-I m4
+ACLOCAL_AMFLAGS=-I m4 --install
 
 AM_CFLAGS=-std=c89 -O3 -ggdb -Wall -Wextra -Wpedantic -Werror
 
