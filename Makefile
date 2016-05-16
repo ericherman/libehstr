@@ -1,11 +1,14 @@
 LIB_NAME=ehstr
 
-AUX_INCLUDES=-I ../libecheck
-AUX_A_FILES=../libecheck/libecheck.a
-AUX_LDFLAGS=-L../libecheck
-AUX_LDADD=-lecheck
-AUX_LD_LIBRARY_PATHS=:../libecheck
+AUX_DIR=/usr/local
+AUX_LIB_DIR=$(AUX_DIR)/lib
+AUX_INCLUDES=-I $(AUX_DIR)/include
 
+AUX_LDFLAGS=-L$(AUX_LIB_DIR)
+AUX_LDADD=-lecheck
+AUX_LD_LIBRARY_PATHS=:$(AUX_LIB_DIR)
+
+AUX_A_FILES=$(AUX_LIB_DIR)/libecheck.a
 
 UNAME := $(shell uname)
 
