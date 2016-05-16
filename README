@@ -12,6 +12,16 @@ The "ehstr.h" header file defines:
    (in place)
 * strnlen, for environments which only have strlen
 
+
+Packaging
+---------
+autoreconf -iv &&
+ ./configure &&
+ make &&
+ make distcheck &&
+ echo "Success."
+
+
 License
 -------
 GNU Lesser General Public License (LGPL), version 3 or later.
