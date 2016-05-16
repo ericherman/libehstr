@@ -18,6 +18,7 @@ $*
 *.a
 *.bin
 *.d
+test-ehstr
 test-*-dynamic
 test-*-static
 
