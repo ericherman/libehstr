@@ -110,6 +110,9 @@ clean:
 	rm -f *.o *.a *.$(SHAREDEXT) $(SO_NAME).* \
 		$(TEST_OUT)-static $(TEST_OUT)-dynamic
 
+spotless:
+	rm -rfv `cat .gitignore`
+
 install: $(LIB_NAME)
 	@echo "Installing $(LIB_NAME) $(UNAME) libraries in $(LIBDIR)"
 	@mkdir -pv $(LIBDIR)
