@@ -154,7 +154,7 @@ char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,
 
 	/* left shift away leading zeros */
 	/* first find the index (j) of the first non-zero */
-	for (j = 0; hex_buf[j] == '0' && j < hex_len; ++j) {
+	for (j = 0; j < hex_len && hex_buf[j] == '0'; ++j) {
 		;
 	}
 
@@ -246,7 +246,7 @@ char *hex_to_decimal(const char *hex, size_t hex_len, char *buf, size_t buf_len)
 
 	/* left shift away leading zeros */
 	/* first find the index (j) of the first non-zero */
-	for (j = 0; dec_buf[j] == '0' && j < dec_len; ++j) {
+	for (j = 0; j < dec_len && dec_buf[j] == '0'; ++j) {
 		;
 	}
 	/* if everything is zero, include the last zero */
