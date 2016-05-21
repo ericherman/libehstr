@@ -49,5 +49,5 @@ tidy:
 
 spotless: clean
 	rm -rf `cat .gitignore`
-	pushd src; rm -rf `cat ../.gitignore`; popd
-	pushd tests; rm -rf `cat ../.gitignore`; popd
+	pushd src && rm -rf `cat ../.gitignore | sed -e 's/#.*//'`; popd
+	pushd tests && rm -rf `cat ../.gitignore | sed -e 's/#.*//'`; popd
