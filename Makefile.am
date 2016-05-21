@@ -51,3 +51,13 @@ spotless: clean
 	rm -rf `cat .gitignore`
 	pushd src && rm -rf `cat ../.gitignore | sed -e 's/#.*//'`; popd
 	pushd tests && rm -rf `cat ../.gitignore | sed -e 's/#.*//'`; popd
+
+valgrind: $(check_PROGRAMS)
+	libtool --mode=execute valgrind ./test-btou
+	libtool --mode=execute valgrind ./test-decimal-to-hex
+	libtool --mode=execute valgrind ./test-decimal-to-hex-to-dec-loop
+	libtool --mode=execute valgrind ./test-ehstrnlen
+	libtool --mode=execute valgrind ./test-hex-to-decimal
+	libtool --mode=execute valgrind ./test-revstr
+	libtool --mode=execute valgrind ./test-trimstr
+	libtool --mode=execute valgrind ./test-utob
