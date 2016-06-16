@@ -36,6 +36,8 @@ test_utob_LDADD=libehstr.la -lecheck
 
 ACLOCAL_AMFLAGS=-I m4 --install
 
+EXTRA_DIST=misc
+
 AM_CFLAGS=-std=c89 -O3 -ggdb -Wall -Wextra -Wpedantic -Werror
 
 # extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
