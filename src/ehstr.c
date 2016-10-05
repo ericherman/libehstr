@@ -16,7 +16,7 @@ char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 	}
 
 	str_pos = 0;
-	for (i = bits; i > 0; i--) {
+	for (i = bits; i > 0; --i) {
 		if (str_pos >= (buf_size - 1)) {
 			break;
 		}
@@ -83,7 +83,7 @@ void revstr(char *str, size_t buf_size)
 	char swap;
 
 	len = strnlen(str, buf_size);
-	for (i = 0, j = len - 1; i < j; i++, j--) {
+	for (i = 0, j = len - 1; i < j; ++i, --j) {
 		swap = str[i];
 		str[i] = str[j];
 		str[j] = swap;
