@@ -36,7 +36,7 @@ test_utob_LDADD=libehstr.la -lecheck
 
 ACLOCAL_AMFLAGS=-I m4 --install
 
-EXTRA_DIST=misc
+EXTRA_DIST=COPYING.GPL3
 
 AM_CFLAGS=-std=c89 -O3 -ggdb -Wall -Wextra -Wpedantic -Werror
 

@@ -1,3 +1,14 @@
+2016-10-07  Eric Herman <eric@freesa.org>
+
+	make the license files easier to auto-detect
+
+	* COPYING: copied from misc/lgpl-3.0.txt
+	* README: reference new file locations
+	* Makefile.am: remove misc/, include COPYING.GPL3
+	* COPYING.GPL3: renamed from misc/gpl-3.0.txt
+	* misc/gpl-3.0.txt: renamed to COPYING.GPL3
+	* misc/lgpl-3.0.txt: renamed to COPYING
+
 2016-06-17  Eric Herman <eric@freesa.org>
 
 	* COPYING: boilerplate LGPLv3+
