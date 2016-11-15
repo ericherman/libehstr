@@ -42,6 +42,15 @@ int main(void)
 	}
 	failures += check_str(buf, "0x04A0D58CBFD9");
 
+	str = "200";
+	rv = decimal_to_hex(str, strlen(str), buf, 20);
+	if (rv == NULL) {
+		fprintf(stderr, "NULL returned from decimal_to_hex\n");
+		fprintf(stderr, "Aborting test\n");
+		return (1 + failures);
+	}
+	failures += check_str(buf, "0x00C8");
+
 	if (failures) {
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);
 	}

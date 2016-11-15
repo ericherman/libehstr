@@ -120,11 +120,26 @@ static char nibble_to_hex(unsigned char nibble)
 	}
 }
 
+static unsigned char hex_to_nibble(char hex)
+{
+	if (hex >= '0' && hex <= '9') {
+                return (unsigned char) hex - '0';
+        } else if (hex >= 'a' && hex <= 'f') {
+                return (unsigned char) 10 + hex - 'a';
+        } else if (hex >= 'A' && hex <= 'F') {
+                return (unsigned char) 10 + hex - 'A';
+	}
+
+	/* crash */
+	((char *)NULL)[0] = hex;
+	return (unsigned char) hex;
+}
+
 char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,
 		     size_t buf_len)
 {
 	size_t i, j, k, hex_len;
-	unsigned char *hex_buf;
+	unsigned char *hex_buf, byte;
 
 	if (dec_str == 0 || buf == 0 || buf_len < 5) {
 		return NULL;
@@ -181,6 +196,17 @@ char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,
 	/* since j was incremented, whole bytes of '0' will be odd */
 	if (j % 2 == 0) {
 		j -= 1;
+	}
+
+	/* leave a "00" if the leading byte would be greater than 7F */
+	if (j + 1 < hex_len) {
+		byte = 0;
+
+		byte = hex_to_nibble(hex_buf[j]) << 4;
+		byte += hex_to_nibble(hex_buf[j + 1]);
+		if (byte > 0x7F) {
+			j -= 2;
+		}
 	}
 
 	/* next, shift all the contents "j" places to the left */
