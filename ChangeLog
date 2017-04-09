@@ -1,11 +1,15 @@
 2017-04-09  Eric Herman <eric@freesa.org>
 
 	make nicer for inclusion in C++ projects
+	remove test dependency on installed libecheck
 
 	 * src/ehstr.h: include the ifdef __cplusplus stuff
 	 * src/ehstr.c: code tidy
+	 * tests/echeck.h: pull in the code from libecheck
+	 * tests/echeck.c: https://github.com/ericherman/libecheck
 	 * misc/pre-tidy.patch: patch to avoid GNU Indent being weird
-	 * Makefile.am: add pre-tidy patch to "make tidy"
+	 * Makefile.am: add pre-tidy patch to "make tidy", echeck
+	 * misc/pre-tidy.patch: echeck
 
 
 2016-10-07  Eric Herman <eric@freesa.org>

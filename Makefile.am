@@ -14,24 +14,28 @@ check_PROGRAMS=\
  test-trimstr \
  test-utob
 
-test_btou_SOURCES=tests/test-btou.c src/ehstr.h
-test_decimal_to_hex_SOURCES=src/ehstr.h tests/test-decimal-to-hex.c
-test_decimal_to_hex_to_dec_loop_SOURCES=src/ehstr.h \
-	tests/test-decimal-to-hex-to-dec-loop.c
-test_ehstrnlen_SOURCES=src/ehstr.h tests/test-ehstrnlen.c
-test_hex_to_decimal_SOURCES=src/ehstr.h tests/test-hex-to-decimal.c
-test_revstr_SOURCES=src/ehstr.h tests/test-revstr.c
-test_trimstr_SOURCES=src/ehstr.h tests/test-trimstr.c
-test_utob_SOURCES=src/ehstr.h tests/test-utob.c
+COMMON_TEST_SOURCES=src/ehstr.h \
+ tests/echeck.h \
+ tests/echeck.c
 
-test_btou_LDADD=libehstr.la -lecheck
-test_decimal_to_hex_LDADD=libehstr.la -lecheck
-test_decimal_to_hex_to_dec_loop_LDADD=libehstr.la -lecheck
-test_ehstrnlen_LDADD=libehstr.la -lecheck
-test_hex_to_decimal_LDADD=libehstr.la -lecheck
-test_revstr_LDADD=libehstr.la -lecheck
-test_trimstr_LDADD=libehstr.la -lecheck
-test_utob_LDADD=libehstr.la -lecheck
+test_btou_SOURCES=$(COMMON_TEST_SOURCES) tests/test-btou.c
+test_decimal_to_hex_SOURCES=$(COMMON_TEST_SOURCES) tests/test-decimal-to-hex.c
+test_decimal_to_hex_to_dec_loop_SOURCES=$(COMMON_TEST_SOURCES) \
+	tests/test-decimal-to-hex-to-dec-loop.c
+test_ehstrnlen_SOURCES=$(COMMON_TEST_SOURCES) tests/test-ehstrnlen.c
+test_hex_to_decimal_SOURCES=$(COMMON_TEST_SOURCES) tests/test-hex-to-decimal.c
+test_revstr_SOURCES=$(COMMON_TEST_SOURCES) tests/test-revstr.c
+test_trimstr_SOURCES=$(COMMON_TEST_SOURCES) tests/test-trimstr.c
+test_utob_SOURCES=$(COMMON_TEST_SOURCES) tests/test-utob.c
+
+test_btou_LDADD=libehstr.la
+test_decimal_to_hex_LDADD=libehstr.la
+test_decimal_to_hex_to_dec_loop_LDADD=libehstr.la
+test_ehstrnlen_LDADD=libehstr.la
+test_hex_to_decimal_LDADD=libehstr.la
+test_revstr_LDADD=libehstr.la
+test_trimstr_LDADD=libehstr.la
+test_utob_LDADD=libehstr.la
 
 
 ACLOCAL_AMFLAGS=-I m4 --install
