@@ -123,16 +123,16 @@ static char nibble_to_hex(unsigned char nibble)
 static unsigned char hex_to_nibble(char hex)
 {
 	if (hex >= '0' && hex <= '9') {
-                return (unsigned char) hex - '0';
-        } else if (hex >= 'a' && hex <= 'f') {
-                return (unsigned char) 10 + hex - 'a';
-        } else if (hex >= 'A' && hex <= 'F') {
-                return (unsigned char) 10 + hex - 'A';
+		return (unsigned char)hex - '0';
+	} else if (hex >= 'a' && hex <= 'f') {
+		return (unsigned char)10 + hex - 'a';
+	} else if (hex >= 'A' && hex <= 'F') {
+		return (unsigned char)10 + hex - 'A';
 	}
 
 	/* crash */
 	((char *)NULL)[0] = hex;
-	return (unsigned char) hex;
+	return (unsigned char)hex;
 }
 
 char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,

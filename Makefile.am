@@ -36,7 +36,7 @@ test_utob_LDADD=libehstr.la -lecheck
 
 ACLOCAL_AMFLAGS=-I m4 --install
 
-EXTRA_DIST=COPYING.GPL3
+EXTRA_DIST=COPYING.GPL3 misc
 
 AM_CFLAGS=-std=c89 -O3 -ggdb -Wall -Wextra -Wpedantic -Werror
 
@@ -44,10 +44,12 @@ AM_CFLAGS=-std=c89 -O3 -ggdb -Wall -Wextra -Wpedantic -Werror
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
 
 tidy:
+	patch -Np1 -i misc/pre-tidy.patch
 	$(LINDENT) \
 		-T FILE \
 		-T size_t \
 		`find src tests -name '*.h' -o -name '*.c'`
+	patch -Rp1 -i misc/pre-tidy.patch
 
 spotless: clean
 	rm -rf `cat .gitignore`

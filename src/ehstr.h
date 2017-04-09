@@ -20,6 +20,10 @@ You should have received a copy of the GNU Lesser General Public License
 #ifndef EHSTR_H
 #define EHSTR_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>		/* size_t */
 
 /*
@@ -55,6 +59,10 @@ char *hex_to_decimal(const char *hex_str, size_t hex_len, char *buf,
 size_t ehstrnlen(const char *str, size_t buf_size);
 #if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
 #define strnlen ehstrnlen
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* EHSTR_H */
