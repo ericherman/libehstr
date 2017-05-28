@@ -12,8 +12,8 @@
  
  #include <stddef.h>		/* size_t */
  
-@@ -61,8 +63,10 @@
- #define strnlen ehstrnlen
+@@ -63,8 +65,10 @@
+ #include <string.h>
  #endif
  
 +/*
