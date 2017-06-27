@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#include <echeck.h>
+#include "echeck.h"
 #include <values.h>		/* LONGBITS */
 
-#include "../src/ehstr.h"
+#include "ehstr.h"
 
 int main(void)
 {

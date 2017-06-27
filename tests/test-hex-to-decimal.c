@@ -1,9 +1,9 @@
 
-#include "../src/ehstr.h"	/* hex_to_decimal */
+#include "ehstr.h"		/* hex_to_decimal */
 
 #include <stdio.h>		/* fprintf */
 #include <string.h>		/* strlen */
-#include <echeck.h>		/* check_str */
+#include "echeck.h"		/* check_str */
 
 int check_hex_to_decimal(char *in, char *expected)
 {

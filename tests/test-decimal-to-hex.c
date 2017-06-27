@@ -1,7 +1,7 @@
-#include "../src/ehstr.h"	/* decimal_to_hex */
+#include "ehstr.h"		/* decimal_to_hex */
 
 #include <stdio.h>		/* fprintf */
-#include <echeck.h>		/* check_str */
+#include "echeck.h"		/* check_str */
 #include <string.h>		/* strlen */
 
 int main(void)

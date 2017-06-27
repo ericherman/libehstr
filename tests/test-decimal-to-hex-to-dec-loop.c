@@ -1,8 +1,8 @@
-#include "../src/ehstr.h"	/* decimal_to_hex hex_to_decimal */
+#include "ehstr.h"		/* decimal_to_hex hex_to_decimal */
 
 #include <stdio.h>		/* fprintf */
 #include <string.h>		/* strlen */
-#include <echeck.h>		/* check_str */
+#include "echeck.h"		/* check_str */
 
 int main(void)
 {

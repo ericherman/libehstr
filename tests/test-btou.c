@@ -1,8 +1,8 @@
-#include "../src/ehstr.h"	/* nothing */
+#include "ehstr.h"		/* nothing */
 
 #include <stdio.h>		/* fprintf */
 #include <stdlib.h>		/* strtol strtoul */
-#include <echeck.h>		/* check_long check_unsigned_long */
+#include "echeck.h"		/* check_long check_unsigned_long */
 
 int main(void)
 {

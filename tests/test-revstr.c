@@ -1,8 +1,8 @@
-#include "../src/ehstr.h"	/* revstr */
+#include "ehstr.h"		/* revstr */
 
 #include <stdio.h>		/* fprintf */
 #include <string.h>		/* strncpy */
-#include <echeck.h>		/* check_str */
+#include "echeck.h"		/* check_str */
 
 int main(void)
 {
