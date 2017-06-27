@@ -42,7 +42,7 @@ ACLOCAL_AMFLAGS=-I m4 --install
 
 EXTRA_DIST=COPYING.GPL3 misc
 
-AM_CFLAGS=-std=c89 -O3 -ggdb -Wall -Wextra -Wpedantic -Werror
+AM_CFLAGS=-std=c89 -O3 -fomit-frame-pointer -ggdb -Wall -Wextra -Wpedantic -Werror -pipe
 
 # extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
