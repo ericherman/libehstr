@@ -1,3 +1,11 @@
+2018-09-02  Eric Herman <eric@freesa.org>
+
+	revstr was not safe for NULL or emtpy string, now it is
+
+	* src/ehstr.c: NULL safty, empty string safety
+	* tests/test-revstr.c: test safety
+
+
 2017-04-09  Eric Herman <eric@freesa.org>
 
 	make nicer for inclusion in C++ projects

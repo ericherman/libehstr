@@ -104,6 +104,10 @@ void revstr(char *str, size_t buf_size)
 	size_t i, j, len;
 	char swap;
 
+	if ((!str) || (!str[0])) {
+		return;
+	}
+
 	len = strnlen(str, buf_size);
 	for (i = 0, j = len - 1; i < j; ++i, --j) {
 		swap = str[i];

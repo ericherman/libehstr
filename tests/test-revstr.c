@@ -4,18 +4,30 @@
 #include <string.h>		/* strncpy */
 #include "echeck.h"		/* check_str */
 
+int check_revstr(const char *in, const char *expected)
+{
+	char reverse[100];
+
+	reverse[0] = '\0';
+
+	strncpy(reverse, in, 99);
+
+	revstr(reverse, 100);
+
+	return check_str(reverse, expected);
+}
+
 int main(void)
 {
 	int failures;
-	char expected[10], reverse[10];
 
 	failures = 0;
-	strncpy(expected, "edcba", 10);
-	strncpy(reverse, "abcde", 10);
+	failures += check_revstr("a", "a");
+	failures += check_revstr("ab", "ba");
+	failures += check_revstr("edcba", "abcde");
+	failures += check_revstr("", "");
 
-	revstr(reverse, 10);
-
-	failures += check_str(reverse, expected);
+	revstr(NULL, 10);
 
 	if (failures) {
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);
