@@ -25,6 +25,11 @@ You should have received a copy of the GNU Lesser General Public License
 
 #include "ehstr.h"
 
+#ifndef Ehstr_memset
+#include <string.h>		/* memset */
+#define Ehstr_memset memset
+#endif
+
 char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 {
 	size_t i, shift, str_pos;
@@ -250,9 +255,7 @@ char *hex_to_decimal(const char *hex, size_t hex_len, char *buf, size_t buf_len)
 	dec_len = buf_len - 1;	/* leave room for the NULL terminator */
 
 	/* zero out the buffer */
-	for (i = 0; i < dec_len; ++i) {
-		dec_buf[i] = 0;
-	}
+	Ehstr_memset(dec_buf, 0, dec_len);
 
 	for (i = 0; i < hex_len && hex[i] != 0; ++i) {
 		ascii_offset = 0;

@@ -1,3 +1,10 @@
+2018-09-24  Eric Herman <eric@freesa.org>
+
+	use memset (or -DEhstr_memset="my_memset") to zero-out array
+
+	* src/ehstr.c: replace loop with memset
+	* Makefile.am: copyright, tidy
+
 2018-09-02  Eric Herman <eric@freesa.org>
 
 	revstr was not safe for NULL or emtpy string, now it is
