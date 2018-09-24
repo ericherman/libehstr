@@ -1,5 +1,17 @@
+#Makefile.am
+#Copyright (C) 2016, 2018 Eric Herman <eric@freesa.org>
+#
+#This work is free software: you can redistribute it and/or modify it
+#under the terms of the GNU Lesser General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or (at
+#your option) any later version.
+#
+#This work is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+#License for more details.
 lib_LTLIBRARIES=libehstr.la
-libehstr_la_SOURCES=src/ehstr.c
+libehstr_la_SOURCES=$(include_HEADERS) src/ehstr.c
 
 include_HEADERS=src/ehstr.h
 
@@ -14,7 +26,7 @@ check_PROGRAMS=\
  test-trimstr \
  test-utob
 
-COMMON_TEST_SOURCES=src/ehstr.h \
+COMMON_TEST_SOURCES=$(include_HEADERS) \
  tests/echeck.h \
  tests/echeck.c
 
@@ -42,7 +54,9 @@ ACLOCAL_AMFLAGS=-I m4 --install
 
 EXTRA_DIST=COPYING.GPL3 misc
 
-AM_CFLAGS=-std=c89 -O3 -fomit-frame-pointer -ggdb -Wall -Wextra -Wpedantic -Werror -pipe
+AM_CFLAGS=-std=c89 -O2 -fomit-frame-pointer \
+ -ggdb -Wall -Wextra -Wpedantic -Werror \
+ -pipe -I./src/
 
 # extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
