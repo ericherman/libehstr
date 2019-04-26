@@ -1,9 +1,34 @@
+2019-04-26  Eric Herman <eric@freesa.org>
+
+	new functions:
+	void byte_to_hex_chars(unsigned char byte, char *high, char *low);
+	unsigned char hex_chars_to_byte(char high, char low);
+
+
+	* configure.ac: version 1.1.0
+	* src/ehstr.h: byte_to_hex_chars hex_chars_to_byte
+	* src/ehstr.c: extract/implment new functions, use asserts
+	* tests/test-nibbles.c: new test
+	* tests/test-btou.c: style update
+	* tests/test-decimal-to-hex-to-dec-loop.c: style update
+	* tests/test-decimal-to-hex.c: style update
+	* tests/test-ehstrnlen.c: style update
+	* tests/test-hex-to-decimal.c: style update
+	* tests/test-revstr.c: style update
+	* tests/test-trimstr.c: style update
+	* tests/test-utob.c: style update
+	* Makefile.am: include new test, remove need for pre-tidy.patch
+	* .gitignore: test-nibbles
+	* misc/pre-tidy.patch: deleted
+
+
 2018-09-24  Eric Herman <eric@freesa.org>
 
 	use memset (or -DEhstr_memset="my_memset") to zero-out array
 
 	* src/ehstr.c: replace loop with memset
 	* Makefile.am: copyright, tidy
+
 
 2018-09-02  Eric Herman <eric@freesa.org>
 

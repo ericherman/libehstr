@@ -14,7 +14,7 @@
 	https://www.gnu.org/licenses/lgpl-3.0.txt
 	https://www.gnu.org/licenses/gpl-3.0.txt
  */
-#include "ehstr.h"		/* ehstrnlen */
+#include "../src/ehstr.h"	/* ehstrnlen */
 
 #include <stdio.h>		/* fprintf */
 #include "echeck.h"		/* check_unsigned_int */
@@ -35,5 +35,5 @@ int main()
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);
 	}
 
-	return (failures > 127 || failures < -128) ? 127 : failures;
+	return check_status(failures);
 }

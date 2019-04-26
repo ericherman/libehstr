@@ -24,22 +24,33 @@
 int main(void)
 {
 	int failures;
-	char buf[LONGBITS + 1];
-	size_t bits;
+	unsigned char byte, out;
+	char high, low;
 
 	failures = 0;
+	high = '\0';
+	low = '\0';
 
-	bits = 4;
-	utob(buf, LONGBITS + 1, 5, bits);
-	failures += check_str("0101", buf);
+	byte = 0x00;
+	byte_to_hex_chars(byte, &high, &low);
+	failures += check_char(high, '0');
+	failures += check_char(low, '0');
+	out = hex_chars_to_byte(high, low);
+	failures += check_unsigned_int(out, byte);
 
-	bits = 3;
-	utob(buf, LONGBITS + 1, 5, bits);
-	failures += check_str("101", buf);
+	byte = 0xA3;
+	byte_to_hex_chars(byte, &high, &low);
+	failures += check_char(high, 'A');
+	failures += check_char(low, '3');
+	out = hex_chars_to_byte(high, low);
+	failures += check_unsigned_int(out, byte);
 
-	bits = 8;
-	utob(buf, LONGBITS + 1, -3, bits);
-	failures += check_str("11111101", buf);
+	byte = 0x0b;
+	byte_to_hex_chars(byte, &high, &low);
+	failures += check_char(high, '0');
+	failures += check_char(low, 'B');
+	out = hex_chars_to_byte(high, low);
+	failures += check_unsigned_int(out, byte);
 
 	if (failures) {
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);

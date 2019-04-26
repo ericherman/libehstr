@@ -14,7 +14,7 @@
 	https://www.gnu.org/licenses/lgpl-3.0.txt
 	https://www.gnu.org/licenses/gpl-3.0.txt
  */
-#include "ehstr.h"		/* decimal_to_hex hex_to_decimal */
+#include "../src/ehstr.h"	/* decimal_to_hex hex_to_decimal */
 
 #include <stdio.h>		/* fprintf */
 #include <string.h>		/* strlen */
@@ -50,5 +50,5 @@ int main(void)
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);
 	}
 
-	return (failures > 127 || failures < -128) ? 127 : failures;
+	return check_status(failures);
 }

@@ -14,7 +14,7 @@
 	https://www.gnu.org/licenses/lgpl-3.0.txt
 	https://www.gnu.org/licenses/gpl-3.0.txt
  */
-#include "ehstr.h"		/* nothing */
+#include "../src/ehstr.h"	/* nothing */
 
 #include <stdio.h>		/* fprintf */
 #include <stdlib.h>		/* strtol strtoul */
@@ -39,5 +39,5 @@ int main(void)
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);
 	}
 
-	return (failures > 127 || failures < -128) ? 127 : failures;
+	return check_status(failures);
 }

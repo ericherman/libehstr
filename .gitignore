@@ -26,6 +26,7 @@ test-decimal-to-hex
 test-decimal-to-hex-to-dec-loop
 test-ehstrnlen
 test-hex-to-decimal
+test-nibbles
 test-revstr
 test-trimstr
 test-utob
