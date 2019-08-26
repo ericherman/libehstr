@@ -16,6 +16,7 @@
 #include <stddef.h>		/* size_t */
 
 Ehstr_begin_C_functions
+#undef Ehstr_begin_C_functions
 /*
   unsigned to big-endian binary
   represents a binary value as a string of zeros and ones
@@ -58,6 +59,5 @@ size_t ehstrnlen(const char *str, size_t buf_size);
 #endif
 
 Ehstr_end_C_functions
-#define Ehstr_begin_C_functions
-#define Ehstr_end_C_functions
+#undef Ehstr_end_C_functions
 #endif /* EHSTR_H */
