@@ -1,3 +1,17 @@
+2020-02-06  Eric Herman <eric@freesa.org>
+
+	Add gcov/lcov support.
+	Cover untested corners from lcov.
+
+	* src/ehstr.c: deal with impossible branch
+	* tests/test-decimal-to-hex.c: add some corner case testing
+	* tests/test-hex-to-decimal.c: (same)
+	* tests/test-nibbles.c: (same)
+	* tests/test-trimstr.c: (same)
+	* tests/test-utob.c: (same)
+	* Makefile.am: gcov/lcov support
+	* .gitignore: coverage files
+
 2019-08-20  Eric Herman <eric@freesa.org>
 
 	use SPDX-License-Identifier: LGPL-3.0-or-later

@@ -18,6 +18,10 @@ $*
 *.a
 *.bin
 *.d
+*.gcda
+*.gcno
+coverage.info
+coverage_html/
 test-ehstr
 test-*-dynamic
 test-*-static

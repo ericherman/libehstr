@@ -1,6 +1,21 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 # Makefile.am
-# Copyright (C) 2016, 2018, 2019 Eric Herman <eric@freesa.org>
+# Copyright (C) 2016, 2018, 2019, 2020 Eric Herman <eric@freesa.org>
+
+RELEASE_CFLAGS=-O2 -DNDEBUG -fomit-frame-pointer
+
+DEBUG_CFLAGS=-O0 \
+ -fno-inline-small-functions \
+ -fkeep-inline-functions \
+ -fkeep-static-functions \
+ --coverage
+
+BUILD_TYPE_CFLAGS=$(RELEASE_CFLAGS)
+
+AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror \
+ -ggdb $(BUILD_TYPE_CFLAGS) \
+ -I./src/ -pipe
+
 
 lib_LTLIBRARIES=libehstr.la
 libehstr_la_SOURCES=$(include_HEADERS) src/ehstr.c
@@ -48,10 +63,6 @@ test_utob_LDADD=libehstr.la
 ACLOCAL_AMFLAGS=-I m4 --install
 
 EXTRA_DIST=COPYING COPYING.LESSER
-
-AM_CFLAGS=-std=c89 -O2 -fomit-frame-pointer \
- -ggdb -Wall -Wextra -Wpedantic -Werror \
- -pipe -I./src/
 
 # extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0

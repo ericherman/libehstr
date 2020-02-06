@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: LGPL-3.0-or-later */
 /* test-trimstr.c */
-/* Copyright (C) 2016, 2017, 2019 Eric Herman <eric@freesa.org> */
+/* Copyright (C) 2016, 2017, 2019, 2020 Eric Herman <eric@freesa.org> */
 
 #include "../src/ehstr.h"	/* trimstr */
 
@@ -22,6 +22,11 @@ int main(void)
 
 	strncpy(expected, "foo AND bar", 20);
 	strncpy(actual, " \tfoo AND bar \n", 20);
+	trimstr(actual, 20);
+	failures += check_str(actual, expected);
+
+	strncpy(expected, "", 20);
+	strncpy(actual, "", 20);
 	trimstr(actual, 20);
 	failures += check_str(actual, expected);
 

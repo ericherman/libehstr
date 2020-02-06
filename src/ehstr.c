@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: LGPL-3.0-or-later */
 /* libecheck: a few handy stirng functions */
-/* Copyright (C) 2016, 2019 Eric Herman <eric@freesa.org> */
+/* Copyright (C) 2016, 2019, 2020 Eric Herman <eric@freesa.org> */
 
 #ifndef LONGBITS
 #include <values.h>		/* LONGBITS */
@@ -113,16 +113,19 @@ void revstr(char *str, size_t buf_size)
 static char nibble_to_hex(unsigned char nibble)
 {
 	assert(nibble < 16);
+#ifdef NDEBUG
+	if (nibble >= 16) {
+		/* crash */
+		((char *)NULL)[0] = nibble;
+		return '\0';
+	}
+#endif
 
 	if (nibble < 10) {
 		return '0' + nibble;
-	} else if (nibble < 16) {
-		return 'A' + nibble - 10;
 	}
 
-	/* crash */
-	((char *)NULL)[0] = nibble;
-	return '\0';
+	return 'A' + nibble - 10;
 }
 
 static unsigned char hex_to_nibble(char hex)
@@ -132,15 +135,20 @@ static unsigned char hex_to_nibble(char hex)
 
 	if (hex >= '0' && hex <= '9') {
 		return (unsigned char)hex - '0';
-	} else if (hex >= 'a' && hex <= 'f') {
+	}
+	if (hex >= 'a' && hex <= 'f') {
 		return (unsigned char)10 + hex - 'a';
-	} else if (hex >= 'A' && hex <= 'F') {
-		return (unsigned char)10 + hex - 'A';
 	}
 
-	/* crash */
-	((char *)NULL)[0] = hex;
-	return (unsigned char)hex;
+#ifdef NDEBUG
+	if (!(hex >= 'A' && hex <= 'F')) {
+		/* crash */
+		((char *)NULL)[0] = hex;
+		return '\0';
+	}
+#endif
+
+	return (unsigned char)10 + hex - 'A';
 }
 
 char *decimal_to_hex(const char *dec_str, size_t dec_len, char *buf,

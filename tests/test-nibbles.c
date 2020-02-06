@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: LGPL-3.0-or-later */
 /* test-utob.c */
-/* Copyright (C) 2016, 2017, 2019 Eric Herman <eric@freesa.org> */
+/* Copyright (C) 2016, 2017, 2019, 2020 Eric Herman <eric@freesa.org> */
 
 #include <stdio.h>
 #include <string.h>
@@ -39,6 +39,9 @@ int main(void)
 	failures += check_char(low, 'B');
 	out = hex_chars_to_byte(high, low);
 	failures += check_unsigned_int(out, byte);
+
+	out = hex_chars_to_byte('7', 'f');
+	failures += check_unsigned_int(out, 0x7F);
 
 	if (failures) {
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);

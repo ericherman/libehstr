@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: LGPL-3.0-or-later */
 /* test-decimal-to-hex.c */
-/* Copyright (C) 2016, 2017, 2019 Eric Herman <eric@freesa.org> */
+/* Copyright (C) 2016, 2017, 2019, 2020 Eric Herman <eric@freesa.org> */
 
 #include "../src/ehstr.h"	/* decimal_to_hex */
 
@@ -54,6 +54,14 @@ int main(void)
 		return (1 + failures);
 	}
 	failures += check_str(buf, "0x00C8");
+
+	str = "6bogus1";
+	rv = decimal_to_hex(str, strlen(str), buf, 20);
+	if (rv != NULL) {
+		fprintf(stderr, "NULL *not* returned from decimal_to_hex\n");
+		++failures;
+	}
+	failures += check_str(buf, "");
 
 	if (failures) {
 		fprintf(stderr, "%d failures in %s\n", failures, __FILE__);
