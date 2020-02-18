@@ -2,20 +2,23 @@
 # Makefile.am
 # Copyright (C) 2016, 2018, 2019, 2020 Eric Herman <eric@freesa.org>
 
-RELEASE_CFLAGS=-O2 -DNDEBUG -fomit-frame-pointer
-
-DEBUG_CFLAGS=-O0 \
- -fno-inline-small-functions \
- -fkeep-inline-functions \
- -fkeep-static-functions \
- --coverage
-
-BUILD_TYPE_CFLAGS=$(RELEASE_CFLAGS)
+if DEBUG
+BUILD_TYPE_CFLAGS=-ggdb -O0 \
+	-fno-inline-small-functions \
+	-fkeep-inline-functions \
+	-fkeep-static-functions \
+	--coverage
+BUILD_TYPE_LDFLAGS=--coverage
+else
+BUILD_TYPE_CFLAGS=-ggdb -O2 -DNDEBUG -Wno-unused-parameter -fomit-frame-pointer
+BUILD_TYPE_LDFLAGS=
+endif
 
 AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror \
  -ggdb $(BUILD_TYPE_CFLAGS) \
  -I./src/ -pipe
 
+AM_LDFLAGS=$(BUILD_TYPE_LDFLAGS)
 
 lib_LTLIBRARIES=libehstr.la
 libehstr_la_SOURCES=$(include_HEADERS) src/ehstr.c
