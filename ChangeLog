@@ -1,3 +1,25 @@
+2020-02-20  Eric Herman <eric@freesa.org>
+
+	change libecheck from a copy to a git submodule
+
+	* submodules/libecheck: add git submodule
+	* .gitmodules: https://github.com/ericherman/libecheck.git
+	* Makefile.am: reflect submodule inclusion, parallel valgrind
+	* README: add cloning section
+	* configure.ac: 1.1.1 -> 1.1.2
+	* tests/echeck.c: removed copy
+	* tests/echeck.h: removed copy
+	* tests/test-btou.c: echeck include
+	* tests/test-decimal-to-hex-to-dec-loop.c: echeck include
+	* tests/test-decimal-to-hex.c: echeck include
+	* tests/test-ehstrnlen.c: echeck include
+	* tests/test-hex-to-decimal.c: echeck include
+	* tests/test-nibbles.c: echeck include
+	* tests/test-revstr.c: echeck include
+	* tests/test-trimstr.c: echeck include
+	* tests/test-utob.c: echeck include
+
+
 2020-02-06  Eric Herman <eric@freesa.org>
 
 	Add gcov/lcov support.

@@ -6,7 +6,7 @@
 
 #include <stdio.h>		/* fprintf */
 #include <string.h>		/* strlen */
-#include "echeck.h"		/* check_str */
+#include "../submodules/libecheck/src/echeck.h"	/* check_str */
 
 int main(void)
 {

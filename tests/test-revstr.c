@@ -6,7 +6,7 @@
 
 #include <stdio.h>		/* fprintf */
 #include <string.h>		/* strncpy */
-#include "echeck.h"		/* check_str */
+#include "../submodules/libecheck/src/echeck.h"	/* check_str */
 
 int check_revstr(const char *in, const char *expected)
 {

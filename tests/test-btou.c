@@ -6,7 +6,7 @@
 
 #include <stdio.h>		/* fprintf */
 #include <stdlib.h>		/* strtol strtoul */
-#include "echeck.h"		/* check_long check_unsigned_long */
+#include "../submodules/libecheck/src/echeck.h"	/* check_long check_unsigned_long */
 
 int main(void)
 {

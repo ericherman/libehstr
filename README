@@ -12,6 +12,15 @@ The "ehstr.h" header file defines:
    (in place)
 * strnlen, for environments which only have strlen
 
+Cloning
+-------
+git clone -o upstream https://github.com/ericherman/libehstr.git &&
+ cd libeba &&
+ git submodule update --init --recursive &&
+ autoreconf -iv &&
+ ./configure &&
+ make -j check
+
 
 Packaging
 ---------

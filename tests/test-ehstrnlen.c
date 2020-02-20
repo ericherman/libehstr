@@ -5,7 +5,7 @@
 #include "../src/ehstr.h"	/* ehstrnlen */
 
 #include <stdio.h>		/* fprintf */
-#include "echeck.h"		/* check_unsigned_int */
+#include "../submodules/libecheck/src/echeck.h"	/* check_unsigned_int */
 #include <string.h>		/* perhaps strnlen */
 
 int main()

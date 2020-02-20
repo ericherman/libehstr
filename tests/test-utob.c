@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "echeck.h"
+#include "../submodules/libecheck/src/echeck.h"
 #include <values.h>		/* LONGBITS */
 
 #include "../src/ehstr.h"
