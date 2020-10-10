@@ -10,12 +10,14 @@ BUILD_TYPE_CFLAGS=-ggdb -O0 \
 	--coverage
 BUILD_TYPE_LDFLAGS=--coverage
 else
-BUILD_TYPE_CFLAGS=-ggdb -O2 -DNDEBUG -Wno-unused-parameter -fomit-frame-pointer
+BUILD_TYPE_CFLAGS=-ggdb -O2 -fomit-frame-pointer
 BUILD_TYPE_LDFLAGS=
 endif
 
 AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror \
  -ggdb $(BUILD_TYPE_CFLAGS) \
+ -DEHSTR_FAUX_FREESTANDING=1 \
+ -DEHSTR_HOSTED=0 \
  -I./src/ -pipe
 
 AM_LDFLAGS=$(BUILD_TYPE_LDFLAGS)
@@ -30,7 +32,7 @@ check_PROGRAMS=\
  test-btou \
  test-decimal-to-hex \
  test-decimal-to-hex-to-dec-loop \
- test-ehstrnlen \
+ test-ehstr-strnlen \
  test-nibbles \
  test-hex-to-decimal \
  test-revstr \
@@ -47,7 +49,7 @@ test_btou_SOURCES=$(COMMON_TEST_SOURCES) tests/test-btou.c
 test_decimal_to_hex_SOURCES=$(COMMON_TEST_SOURCES) tests/test-decimal-to-hex.c
 test_decimal_to_hex_to_dec_loop_SOURCES=$(COMMON_TEST_SOURCES) \
 	tests/test-decimal-to-hex-to-dec-loop.c
-test_ehstrnlen_SOURCES=$(COMMON_TEST_SOURCES) tests/test-ehstrnlen.c
+test_ehstr_strnlen_SOURCES=$(COMMON_TEST_SOURCES) tests/test-ehstr-strnlen.c
 test_nibbles_SOURCES=$(COMMON_TEST_SOURCES) tests/test-nibbles.c
 test_hex_to_decimal_SOURCES=$(COMMON_TEST_SOURCES) tests/test-hex-to-decimal.c
 test_revstr_SOURCES=$(COMMON_TEST_SOURCES) tests/test-revstr.c
@@ -57,7 +59,7 @@ test_utob_SOURCES=$(COMMON_TEST_SOURCES) tests/test-utob.c
 test_btou_LDADD=libehstr.la
 test_decimal_to_hex_LDADD=libehstr.la
 test_decimal_to_hex_to_dec_loop_LDADD=libehstr.la
-test_ehstrnlen_LDADD=libehstr.la
+test_ehstr_strnlen_LDADD=libehstr.la
 test_hex_to_decimal_LDADD=libehstr.la
 test_nibbles_LDADD=libehstr.la
 test_revstr_LDADD=libehstr.la
@@ -67,7 +69,7 @@ test_utob_LDADD=libehstr.la
 test_btou_CFLAGS=$(COMMON_TEST_CFLAGS)
 test_decimal_to_hex_CFLAGS=$(COMMON_TEST_CFLAGS)
 test_decimal_to_hex_to_dec_loop_CFLAGS=$(COMMON_TEST_CFLAGS)
-test_ehstrnlen_CFLAGS=$(COMMON_TEST_CFLAGS)
+test_ehstr_strnlen_CFLAGS=$(COMMON_TEST_CFLAGS)
 test_hex_to_decimal_CFLAGS=$(COMMON_TEST_CFLAGS)
 test_nibbles_CFLAGS=$(COMMON_TEST_CFLAGS)
 test_revstr_CFLAGS=$(COMMON_TEST_CFLAGS)
@@ -111,8 +113,8 @@ vg-test-decimal-to-hex: test-decimal-to-hex
 vg-test-decimal-to-hex-to-dec-loop: test-decimal-to-hex-to-dec-loop
 	./libtool --mode=execute valgrind -q ./test-decimal-to-hex-to-dec-loop
 
-vg-test-ehstrnlen: test-ehstrnlen
-	./libtool --mode=execute valgrind -q ./test-ehstrnlen
+vg-test-ehstr-strnlen: test-ehstr-strnlen
+	./libtool --mode=execute valgrind -q ./test-ehstr-strnlen
 
 vg-test-hex-to-decimal: test-hex-to-decimal
 	./libtool --mode=execute valgrind -q ./test-hex-to-decimal
@@ -133,7 +135,7 @@ vg-test-nibbles: test-nibbles
 valgrind: vg-test-btou \
 	vg-test-decimal-to-hex \
 	vg-test-decimal-to-hex-to-dec-loop \
-	vg-test-ehstrnlen \
+	vg-test-ehstr-strnlen \
 	vg-test-hex-to-decimal \
 	vg-test-revstr \
 	vg-test-trimstr \

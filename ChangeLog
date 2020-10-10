@@ -1,3 +1,23 @@
+2020-10-09  Eric Herman <eric@freesa.org>
+
+	Getting ready for version 2.0.0
+
+	Remove the #define for strnlen
+	Declare function pointers *ehstr_memset, *ehstr_strnlen
+	Removed internal dependencies on standard library functions
+	Defalut to standard <string.h> if __HOSTED__
+	Provide simple 'diy' versions if freestanding
+	Simplify hex functions, remove assertions and need for assert.h
+
+	* src/ehstr.h: function pointers for ehstr_memset, ehstr_strnlen
+	* src/ehstr.c: add "diy" strnlen, memset; simplify code
+	* configure.ac: bump version
+	* tests/test-ehstr-strnlen.c: rename from test-ehstrnlen.c
+	* tests/test-ehstrnlen.c: rename
+	* Makefile.am: rename test
+	* .gitignore: rename test
+
+
 2020-02-20  Eric Herman <eric@freesa.org>
 
 	change libecheck from a copy to a git submodule

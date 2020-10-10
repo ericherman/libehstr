@@ -15,6 +15,23 @@
 
 #include <stddef.h>		/* size_t */
 
+/* Function pointers to standard "hosted" LibC functions which may not be
+ * available in a freestanding environment. If not hosted, then simple, if
+ * not very optimal, versions of these functions will be provided, as they
+ * are needed internally and may be useful externally. */
+
+/* memset - fill memory with a constant byte */
+extern void *(*ehstr_memset)(void *s, int c, size_t n);
+
+/* Even in a hosted environment, C89 did not define strnlen.
+ *
+ * strnlen - determine the length of a fixed-size string
+ *
+ * return the length of str, but check only as many as buf_size;
+ * if a '\0' is not found in the first buf_size, return buf_size
+ */
+extern size_t (*ehstr_strnlen)(const char *s, size_t maxlen);
+
 Ehstr_begin_C_functions
 #undef Ehstr_begin_C_functions
 /*
@@ -44,19 +61,6 @@ char *hex_to_decimal(const char *hex_str, size_t hex_len, char *buf,
 void byte_to_hex_chars(unsigned char byte, char *high, char *low);
 
 unsigned char hex_chars_to_byte(char high, char low);
-
-/*
-  mostly for c89 compat
-
-  return the length of str, but check only as many as buf_size;
-  if a '\0' is not found in the first buf_size, return buf_size
-*/
-size_t ehstrnlen(const char *str, size_t buf_size);
-#if _XOPEN_SOURCE < 700 && _POSIX_C_SOURCE < 200809L
-#define strnlen ehstrnlen
-#else
-#include <string.h>
-#endif
 
 Ehstr_end_C_functions
 #undef Ehstr_end_C_functions
