@@ -13,13 +13,15 @@
 #define Ehstr_end_C_functions
 #endif
 
+Ehstr_begin_C_functions
+#undef Ehstr_begin_C_functions
 #include <stddef.h>		/* size_t */
-
-/* Function pointers to standard "hosted" LibC functions which may not be
+/*
+ * Function pointers to standard "hosted" LibC functions which may not be
  * available in a freestanding environment. If not hosted, then simple, if
  * not very optimal, versions of these functions will be provided, as they
- * are needed internally and may be useful externally. */
-
+ * are needed internally and may be useful externally.
+ */
 /* memset - fill memory with a constant byte */
 extern void *(*ehstr_memset)(void *s, int c, size_t n);
 
@@ -32,8 +34,6 @@ extern void *(*ehstr_memset)(void *s, int c, size_t n);
  */
 extern size_t (*ehstr_strnlen)(const char *s, size_t maxlen);
 
-Ehstr_begin_C_functions
-#undef Ehstr_begin_C_functions
 /*
   unsigned to big-endian binary
   represents a binary value as a string of zeros and ones
