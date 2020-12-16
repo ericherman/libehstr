@@ -1,3 +1,15 @@
+2020-12-16  Eric Herman <eric@freesa.org>
+
+	use eembed for 2.0
+
+	* src/ehstr.c: use eembed
+	* src/ehstr.h: drop function pointeers, strnlen
+	* tests/test-ehstr-strnlen.c: use eembed_strnlen
+	* submodules/libecheck: update including new eembed
+	* README: drop strnlen, mention git submodules
+	* configure.ac: support --enable-faux-freestanding
+	* Makefile.am: use eembed configure
+
 2020-10-09  Eric Herman <eric@freesa.org>
 
 	Getting ready for version 2.0.0

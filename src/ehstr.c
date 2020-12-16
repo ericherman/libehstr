@@ -18,18 +18,7 @@
 /* #include <stdnoreturn.h> */
 
 #include "ehstr.h"
-
-#ifndef EHSTR_HOSTED
-#ifdef ARDUINO
-#define EHSTR_HOSTED 0
-#endif
-#endif
-
-#ifndef EHSTR_HOSTED
-#ifdef __STDC_HOSTED__
-#define EHSTR_HOSTED __STDC_HOSTED__
-#endif
-#endif
+#include "eembed.h"
 
 char *utob(char *buf, size_t buf_size, unsigned long val, size_t bits)
 {
@@ -75,7 +64,7 @@ void trimstr(char *str, size_t buf_size)
 {
 	size_t i, j, offset, len, nonwhite;
 
-	len = (str && buf_size) ? ehstr_strnlen(str, buf_size) : 0;
+	len = (str && buf_size) ? eembed_strnlen(str, buf_size) : 0;
 	if (len == 0) {
 		return;
 	}
@@ -116,7 +105,7 @@ void revstr(char *str, size_t buf_size)
 		return;
 	}
 
-	len = ehstr_strnlen(str, buf_size);
+	len = eembed_strnlen(str, buf_size);
 	for (i = 0, j = len - 1; i < j; ++i, --j) {
 		swap = str[i];
 		str[i] = str[j];
@@ -257,7 +246,7 @@ char *hex_to_decimal(const char *hex, size_t hex_len, char *buf, size_t buf_len)
 	dec_len = buf_len - 1;	/* leave room for the NULL terminator */
 
 	/* zero out the buffer */
-	ehstr_memset(dec_buf, 0, dec_len);
+	eembed_memset(dec_buf, 0, dec_len);
 
 	for (i = 0; i < hex_len && hex[i] != 0; ++i) {
 		ascii_offset = 0;
@@ -336,44 +325,3 @@ unsigned char hex_chars_to_byte(char high, char low)
 
 	return byte;
 }
-
-#if EHSTR_HOSTED
-#include <string.h>
-void *(*ehstr_memset)(void *s, int c, size_t n) = memset;
-#else
-void *ehstr_diy_memset(void *s, int c, size_t n)
-{
-	unsigned char *d;
-
-	if (!s) {
-		return NULL;
-	}
-	d = (unsigned char *)s;
-	while (n--) {
-		d[n] = c;
-	}
-	return d;
-}
-
-void *(*ehstr_memset)(void *s, int c, size_t n) = ehstr_diy_memset;
-#endif
-
-#if ((EHSTR_HOSTED) && (_POSIX_C_SOURCE >= 200809L))
-#include <string.h>
-size_t (*ehstr_strnlen)(const char *s, size_t maxlen) = strnlen;
-#else
-size_t ehstr_diy_strnlen(const char *str, size_t buf_size)
-{
-	size_t i;
-
-	for (i = 0; i < buf_size; ++i) {
-		if (*(str + i) == '\0') {
-			return i;
-		}
-	}
-
-	return buf_size;
-}
-
-size_t (*ehstr_strnlen)(const char *s, size_t maxlen) = ehstr_diy_strnlen;
-#endif

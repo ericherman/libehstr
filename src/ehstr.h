@@ -17,24 +17,6 @@ Ehstr_begin_C_functions
 #undef Ehstr_begin_C_functions
 #include <stddef.h>		/* size_t */
 /*
- * Function pointers to standard "hosted" LibC functions which may not be
- * available in a freestanding environment. If not hosted, then simple, if
- * not very optimal, versions of these functions will be provided, as they
- * are needed internally and may be useful externally.
- */
-/* memset - fill memory with a constant byte */
-extern void *(*ehstr_memset)(void *s, int c, size_t n);
-
-/* Even in a hosted environment, C89 did not define strnlen.
- *
- * strnlen - determine the length of a fixed-size string
- *
- * return the length of str, but check only as many as buf_size;
- * if a '\0' is not found in the first buf_size, return buf_size
- */
-extern size_t (*ehstr_strnlen)(const char *s, size_t maxlen);
-
-/*
   unsigned to big-endian binary
   represents a binary value as a string of zeros and ones
   see also: strtoul(buf, NULL, 2);

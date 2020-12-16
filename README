@@ -10,7 +10,6 @@ The "ehstr.h" header file defines:
    (also arbitrarily long strings, also treats as unsigned)
 * trimstr, to trim leading and trailing whitespace from a string
    (in place)
-* strnlen, for environments which only have strlen
 
 Cloning
 -------
@@ -24,6 +23,8 @@ git clone -o upstream https://github.com/ericherman/libehstr.git &&
 
 Packaging
 ---------
+Typically just include it as a git submodule, autotools packaging is
+available:
 autoreconf -iv &&
  ./configure &&
  make &&

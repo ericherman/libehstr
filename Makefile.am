@@ -3,27 +3,40 @@
 # Copyright (C) 2016, 2018, 2019, 2020 Eric Herman <eric@freesa.org>
 
 if DEBUG
-BUILD_TYPE_CFLAGS=-ggdb -O0 \
+BUILD_TYPE_CFLAGS=-g -O0 \
 	-fno-inline-small-functions \
 	-fkeep-inline-functions \
 	-fkeep-static-functions \
 	--coverage
 BUILD_TYPE_LDFLAGS=--coverage
 else
-BUILD_TYPE_CFLAGS=-ggdb -O2 -fomit-frame-pointer
+BUILD_TYPE_CFLAGS=-g -O2 -DNDEBUG -fomit-frame-pointer
 BUILD_TYPE_LDFLAGS=
 endif
 
+# ./configure --enable-faux-freestanding
+if FAUX_FREESTANDING
+BUILD_ENV_CFLAGS=-DFAUX_FREESTANDING=1 -DEEMBED_HOSTED=0
+else
+BUILD_ENV_CFLAGS=
+endif
+
+EEMBED_SRC_DIR=./submodules/libecheck/src
+
 AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror \
- -ggdb $(BUILD_TYPE_CFLAGS) \
- -DEHSTR_FAUX_FREESTANDING=1 \
- -DEHSTR_HOSTED=0 \
- -I./src/ -pipe
+ $(BUILD_TYPE_CFLAGS) \
+ $(BUILD_ENV_CFLAGS) \
+ -I$(EEMBED_SRC_DIR) \
+ -I./src/ \
+ -pipe
 
 AM_LDFLAGS=$(BUILD_TYPE_LDFLAGS)
 
 lib_LTLIBRARIES=libehstr.la
-libehstr_la_SOURCES=$(include_HEADERS) src/ehstr.c
+libehstr_la_SOURCES=$(include_HEADERS) \
+ $(EEMBED_SRC_DIR)/eembed.h \
+ $(EEMBED_SRC_DIR)/eembed.c \
+ src/ehstr.c
 
 include_HEADERS=src/ehstr.h
 
@@ -39,11 +52,13 @@ check_PROGRAMS=\
  test-trimstr \
  test-utob
 
-COMMON_TEST_SOURCES=$(include_HEADERS) \
- submodules/libecheck/src/echeck.h \
- submodules/libecheck/src/echeck.c
+ECHECK_SRC_DIR=./submodules/libecheck/src
 
-COMMON_TEST_CFLAGS=-I submodules/libecheck/src
+COMMON_TEST_SOURCES=$(include_HEADERS) \
+ $(ECHECK_SRC_DIR)/echeck.h \
+ $(ECHECK_SRC_DIR)/echeck.c
+
+COMMON_TEST_CFLAGS=-I $(ECHECK_SRC_DIR)
 
 test_btou_SOURCES=$(COMMON_TEST_SOURCES) tests/test-btou.c
 test_decimal_to_hex_SOURCES=$(COMMON_TEST_SOURCES) tests/test-decimal-to-hex.c
@@ -81,8 +96,10 @@ ACLOCAL_AMFLAGS=-I m4 --install
 EXTRA_DIST=COPYING COPYING.LESSER \
 	submodules/libecheck/COPYING \
 	submodules/libecheck/COPYING.LESSER \
-	submodules/libecheck/src/echeck.h \
-	submodules/libecheck/src/echeck.c
+	$(EEMBED_SRC_DIR)/eembed.h \
+	$(EEMBED_SRC_DIR)/eembed.c \
+	$(ECHECK_SRC_DIR)/echeck.h \
+	$(ECHECK_SRC_DIR)/echeck.c
 
 
 # extracted from https://github.com/torvalds/linux/blob/master/scripts/Lindent
