@@ -23,7 +23,7 @@ endif
 
 EEMBED_SRC_DIR=./submodules/libecheck/src
 
-AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror \
+AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror -Wcast-qual -Wc++-compat \
  $(BUILD_TYPE_CFLAGS) \
  $(BUILD_ENV_CFLAGS) \
  -I$(EEMBED_SRC_DIR) \
