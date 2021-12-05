@@ -17,12 +17,22 @@ int main(void)
 
 	strncpy(expected, "foo AND bar -> baz", 20);
 	strncpy(actual, "foo AND bar -> baz\n", 20);
+	chomp_crlf(actual, 20);
+	failures += check_str(actual, expected);
+
+	strncpy(expected, "foo AND bar -> baz", 20);
+	strncpy(actual, "foo AND bar -> baz\n", 20);
 	trimstr(actual, 20);
 	failures += check_str(actual, expected);
 
 	strncpy(expected, "foo AND bar", 20);
 	strncpy(actual, " \tfoo AND bar \n", 20);
 	trimstr(actual, 20);
+	failures += check_str(actual, expected);
+
+	strncpy(expected, " \tfoo AND bar ", 20);
+	strncpy(actual, " \tfoo AND bar \n", 20);
+	chomp_crlf(actual, 20);
 	failures += check_str(actual, expected);
 
 	strncpy(expected, "", 20);
