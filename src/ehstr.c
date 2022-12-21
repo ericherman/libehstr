@@ -69,19 +69,19 @@ void trimstr(char *str, size_t buf_size)
 		return;
 	}
 
-	nonwhite = 0;
 	for (i = 0; i < len && ehstr_ascii_isspace(str[i]); ++i) ;
 	offset = i;
 
+	nonwhite = 0;
 	if (offset) {
 		for (i = 0, j = offset; j < len; ++i, ++j) {
 			str[i] = str[j];
 			if (ehstr_ascii_isspace(str[i]) == 0) {
-				nonwhite = i;
+				nonwhite = (i + 1);
 			}
 		}
-		if (nonwhite + 1 < len) {
-			str[nonwhite + 1] = '\0';
+		if (nonwhite < len) {
+			str[nonwhite] = '\0';
 		}
 		return;
 	}
