@@ -19,9 +19,9 @@ unsigned check_trimstr(const char *in, const char *expected)
 	eembed_strncpy(actual, in, sizeof(actual));
 
 	msg[0] = '\0';
-	eembed_strncat(msg, "in: \"", sizeof(msg));
-	eembed_strncat(msg, in, sizeof(msg));
-	eembed_strncat(msg, "\"", sizeof(msg));
+	eembed_strncat(msg, "in: \"", sizeof(msg)-1);
+	eembed_strncat(msg, in, sizeof(msg)-1);
+	eembed_strncat(msg, "\"", sizeof(msg)-1);
 
 	trimstr(actual, sizeof(actual));
 
