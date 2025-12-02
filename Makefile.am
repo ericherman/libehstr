@@ -11,7 +11,7 @@ BUILD_TYPE_CFLAGS=-g -O0 \
 BUILD_TYPE_LDFLAGS=--coverage
 else
 BUILD_TYPE_CFLAGS=-g -O2 -DNDEBUG -fomit-frame-pointer
-BUILD_TYPE_LDFLAGS=
+BUILD_TYPE_LDFLAGS=-flto
 endif
 
 # ./configure --enable-faux-freestanding
@@ -23,7 +23,7 @@ endif
 
 EEMBED_SRC_DIR=./submodules/libecheck/src
 
-AM_CFLAGS=-std=c89 -Wall -Wextra -Wpedantic -Werror -Wcast-qual -Wc++-compat \
+AM_CFLAGS=-std=gnu89 -Wall -Wextra -Wpedantic -Werror -Wcast-qual -Wc++-compat \
  $(BUILD_TYPE_CFLAGS) \
  $(BUILD_ENV_CFLAGS) \
  -I$(EEMBED_SRC_DIR) \
